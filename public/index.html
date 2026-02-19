@@ -3,368 +3,404 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MegaMind Onboarding - Personalize Your AI</title>
+    <title>MegaMind - Get to Know You</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>👋 Welcome to MegaMind!</h1>
-            <p class="subtitle">Let's personalize your AI assistant in 10 quick questions</p>
+            <h1 id="sectionTitle">👋 Let's Get to Know You!</h1>
+            <p class="subtitle" id="sectionSubtitle">So MegaMind can truly be YOUR assistant</p>
         </header>
 
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressBar"></div>
-        </div>
-        <p class="progress-text" id="progressText">Question 1 of 10</p>
+        <div class="progress-bar"><div class="progress-fill" id="progressBar"></div></div>
+        <p class="progress-text" id="progressText">Question 1 of 25</p>
 
         <form id="quizForm">
-            <!-- Q1: Project Priority -->
-            <div class="question-card active" data-question="1">
-                <h2>Which project should I prioritize first?</h2>
-                <p class="help-text">This helps me focus my suggestions and research</p>
-                <div class="options">
-                    <label class="option-card">
-                        <input type="radio" name="q1_project" value="end_of_life_planner" required>
-                        <span class="option-content">
-                            <span class="option-emoji">📋</span>
-                            <span class="option-text">End of Life Planner</span>
-                        </span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q1_project" value="kids_coloring_book">
-                        <span class="option-content">
-                            <span class="option-emoji">🎨</span>
-                            <span class="option-text">Kids Coloring Book</span>
-                        </span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q1_project" value="website_building">
-                        <span class="option-content">
-                            <span class="option-emoji">🌐</span>
-                            <span class="option-text">Website Building Skills</span>
-                        </span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q1_project" value="ai_mastery">
-                        <span class="option-content">
-                            <span class="option-emoji">🤖</span>
-                            <span class="option-text">AI Mastery</span>
-                        </span>
-                    </label>
-                </div>
-            </div>
 
-            <!-- Q2: Learning Style -->
-            <div class="question-card" data-question="2">
-                <h2>How do you prefer to learn new things?</h2>
-                <p class="help-text">I'll adapt my teaching style to match</p>
-                <div class="options">
-                    <label class="option-card">
-                        <input type="radio" name="q2_learning" value="step_by_step" required>
-                        <span class="option-content">
-                            <span class="option-emoji">📝</span>
-                            <span class="option-text">Step-by-step<br><small>Detailed walkthroughs</small></span>
-                        </span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q2_learning" value="big_picture">
-                        <span class="option-content">
-                            <span class="option-emoji">🎯</span>
-                            <span class="option-text">Big picture first<br><small>Then details</small></span>
-                        </span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q2_learning" value="quick_reference">
-                        <span class="option-content">
-                            <span class="option-emoji">⚡</span>
-                            <span class="option-text">Quick bullet points<br><small>Fast reference</small></span>
-                        </span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q2_learning" value="visual">
-                        <span class="option-content">
-                            <span class="option-emoji">🎨</span>
-                            <span class="option-text">Visual learner<br><small>Diagrams & examples</small></span>
-                        </span>
-                    </label>
-                </div>
-            </div>
+<!-- ===== SECTION 1: ABOUT YOU ===== -->
 
-            <!-- Q3: Communication -->
-            <div class="question-card" data-question="3">
-                <h2>When I share information:</h2>
-                <p class="help-text">Sets my response detail level</p>
-                <div class="options">
-                    <label class="option-card">
-                        <input type="radio" name="q3_communication" value="brief" required>
-                        <span class="option-content">
-                            <span class="option-emoji">💬</span>
-                            <span class="option-text">Brief and to the point</span>
-                        </span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q3_communication" value="detailed">
-                        <span class="option-content">
-                            <span class="option-emoji">📚</span>
-                            <span class="option-text">Detailed with examples</span>
-                        </span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q3_communication" value="adaptive">
-                        <span class="option-content">
-                            <span class="option-emoji">🎭</span>
-                            <span class="option-text">Mix based on topic</span>
-                        </span>
-                    </label>
-                </div>
-            </div>
+<div class="question-card active" data-question="1" data-section="about">
+    <h2>What should I call you?</h2>
+    <p class="help-text">I want to address you the way you're most comfortable</p>
+    <div class="options">
+        <label class="option-card"><input type="radio" name="q1_name" value="jacquie" required>
+            <span class="option-content"><span class="option-emoji">😊</span><span class="option-text">Jacquie</span></span></label>
+        <label class="option-card"><input type="radio" name="q1_name" value="mrs_jones">
+            <span class="option-content"><span class="option-emoji">👑</span><span class="option-text">Mrs. Jones</span></span></label>
+        <label class="option-card"><input type="radio" name="q1_name" value="j">
+            <span class="option-content"><span class="option-emoji">✨</span><span class="option-text">J</span></span></label>
+        <label class="option-card"><input type="radio" name="q1_name" value="boss">
+            <span class="option-content"><span class="option-emoji">💪</span><span class="option-text">Boss</span></span></label>
+    </div>
+</div>
 
-            <!-- Q4: Challenge Level -->
-            <div class="question-card" data-question="4">
-                <h2>How should I approach new topics?</h2>
-                <p class="help-text">Matches explanations to your level</p>
-                <div class="options">
-                    <label class="option-card">
-                        <input type="radio" name="q4_challenge" value="beginner" required>
-                        <span class="option-content">
-                            <span class="option-emoji">🌱</span>
-                            <span class="option-text">Start simple<br><small>Assume I'm new</small></span>
-                        </span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q4_challenge" value="intermediate">
-                        <span class="option-content">
-                            <span class="option-emoji">📈</span>
-                            <span class="option-text">Moderate<br><small>I know basics</small></span>
-                        </span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q4_challenge" value="advanced">
-                        <span class="option-content">
-                            <span class="option-emoji">🚀</span>
-                            <span class="option-text">Challenge me<br><small>I learn fast</small></span>
-                        </span>
-                    </label>
-                </div>
-            </div>
+<div class="question-card" data-question="2" data-section="about">
+    <h2>Are you a morning person or night owl?</h2>
+    <p class="help-text">Helps me know when you're at your best</p>
+    <div class="options">
+        <label class="option-card"><input type="radio" name="q2_rhythm" value="early_bird" required>
+            <span class="option-content"><span class="option-emoji">🌅</span><span class="option-text">Early bird<br><small>Up before the sun</small></span></span></label>
+        <label class="option-card"><input type="radio" name="q2_rhythm" value="midday">
+            <span class="option-content"><span class="option-emoji">☀️</span><span class="option-text">Midday person<br><small>Hit my stride by noon</small></span></span></label>
+        <label class="option-card"><input type="radio" name="q2_rhythm" value="night_owl">
+            <span class="option-content"><span class="option-emoji">🌙</span><span class="option-text">Night owl<br><small>Best ideas come late</small></span></span></label>
+        <label class="option-card"><input type="radio" name="q2_rhythm" value="depends">
+            <span class="option-content"><span class="option-emoji">🔄</span><span class="option-text">Depends on the day</span></span></label>
+    </div>
+</div>
 
-            <!-- Q5: Features (Pick 2) -->
-            <div class="question-card" data-question="5">
-                <h2>What would help most? (Pick 2)</h2>
-                <p class="help-text">I'll focus on these first</p>
-                <div class="options">
-                    <label class="option-card checkbox-card">
-                        <input type="checkbox" name="q5_features" value="research">
-                        <span class="option-content">
-                            <span class="option-emoji">🔍</span>
-                            <span class="option-text">Research & info</span>
-                        </span>
-                    </label>
-                    <label class="option-card checkbox-card">
-                        <input type="checkbox" name="q5_features" value="organization">
-                        <span class="option-content">
-                            <span class="option-emoji">📁</span>
-                            <span class="option-text">Organization & files</span>
-                        </span>
-                    </label>
-                    <label class="option-card checkbox-card">
-                        <input type="checkbox" name="q5_features" value="content">
-                        <span class="option-content">
-                            <span class="option-emoji">✍️</span>
-                            <span class="option-text">Content creation</span>
-                        </span>
-                    </label>
-                    <label class="option-card checkbox-card">
-                        <input type="checkbox" name="q5_features" value="automation">
-                        <span class="option-content">
-                            <span class="option-emoji">⚙️</span>
-                            <span class="option-text">Automation</span>
-                        </span>
-                    </label>
-                </div>
-                <p class="validation-hint" id="featureHint"></p>
-            </div>
+<div class="question-card" data-question="3" data-section="about">
+    <h2>How would your best friend describe you?</h2>
+    <p class="help-text">Helps me match your personality</p>
+    <div class="options">
+        <label class="option-card"><input type="radio" name="q3_personality" value="creative" required>
+            <span class="option-content"><span class="option-emoji">🎨</span><span class="option-text">Creative & imaginative</span></span></label>
+        <label class="option-card"><input type="radio" name="q3_personality" value="organized">
+            <span class="option-content"><span class="option-emoji">📋</span><span class="option-text">Organized & dependable</span></span></label>
+        <label class="option-card"><input type="radio" name="q3_personality" value="caring">
+            <span class="option-content"><span class="option-emoji">💛</span><span class="option-text">Caring & generous</span></span></label>
+        <label class="option-card"><input type="radio" name="q3_personality" value="determined">
+            <span class="option-content"><span class="option-emoji">🔥</span><span class="option-text">Determined & driven</span></span></label>
+    </div>
+</div>
 
-            <!-- Q6: Schedule -->
-            <div class="question-card" data-question="6">
-                <h2>When do you typically work?</h2>
-                <p class="help-text">Best times for check-ins</p>
-                <div class="options">
-                    <label class="option-card">
-                        <input type="radio" name="q6_schedule" value="morning" required>
-                        <span class="option-content">
-                            <span class="option-emoji">🌅</span>
-                            <span class="option-text">Mornings<br><small>6am - 12pm</small></span>
-                        </span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q6_schedule" value="afternoon">
-                        <span class="option-content">
-                            <span class="option-emoji">☀️</span>
-                            <span class="option-text">Afternoons<br><small>12pm - 6pm</small></span>
-                        </span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q6_schedule" value="evening">
-                        <span class="option-content">
-                            <span class="option-emoji">🌙</span>
-                            <span class="option-text">Evenings<br><small>6pm - 12am</small></span>
-                        </span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q6_schedule" value="flexible">
-                        <span class="option-content">
-                            <span class="option-emoji">🔄</span>
-                            <span class="option-text">Flexible<br><small>Varies daily</small></span>
-                        </span>
-                    </label>
-                </div>
-            </div>
+<div class="question-card" data-question="4" data-section="about">
+    <h2>What's your favorite way to unwind?</h2>
+    <p class="help-text">So I know when to suggest a break</p>
+    <div class="options">
+        <label class="option-card"><input type="radio" name="q4_unwind" value="reading" required>
+            <span class="option-content"><span class="option-emoji">📖</span><span class="option-text">Reading or devotionals</span></span></label>
+        <label class="option-card"><input type="radio" name="q4_unwind" value="cooking">
+            <span class="option-content"><span class="option-emoji">🍳</span><span class="option-text">Cooking or baking</span></span></label>
+        <label class="option-card"><input type="radio" name="q4_unwind" value="tv_music">
+            <span class="option-content"><span class="option-emoji">🎵</span><span class="option-text">Music, TV, or movies</span></span></label>
+        <label class="option-card"><input type="radio" name="q4_unwind" value="outdoors">
+            <span class="option-content"><span class="option-emoji">🌿</span><span class="option-text">Walking or gardening</span></span></label>
+    </div>
+</div>
 
-            <!-- Q7: Check-in Frequency -->
-            <div class="question-card" data-question="7">
-                <h2>How often should I check in?</h2>
-                <p class="help-text">Proactive updates & suggestions</p>
-                <div class="options">
-                    <label class="option-card">
-                        <input type="radio" name="q7_checkin" value="daily" required>
-                        <span class="option-content">
-                            <span class="option-emoji">📅</span>
-                            <span class="option-text">Daily<br><small>Quick tips</small></span>
-                        </span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q7_checkin" value="few_days">
-                        <span class="option-content">
-                            <span class="option-emoji">📆</span>
-                            <span class="option-text">Every 2-3 days<br><small>Balanced</small></span>
-                        </span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q7_checkin" value="weekly">
-                        <span class="option-content">
-                            <span class="option-emoji">🗓️</span>
-                            <span class="option-text">Weekly<br><small>Deep dives</small></span>
-                        </span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q7_checkin" value="on_demand">
-                        <span class="option-content">
-                            <span class="option-emoji">🔕</span>
-                            <span class="option-text">Only when I ask</span>
-                        </span>
-                    </label>
-                </div>
-            </div>
+<div class="question-card" data-question="5" data-section="about">
+    <h2>What energizes you the most?</h2>
+    <p class="help-text">So I can keep you motivated</p>
+    <div class="options">
+        <label class="option-card"><input type="radio" name="q5_energy" value="helping" required>
+            <span class="option-content"><span class="option-emoji">🤝</span><span class="option-text">Helping others</span></span></label>
+        <label class="option-card"><input type="radio" name="q5_energy" value="learning">
+            <span class="option-content"><span class="option-emoji">💡</span><span class="option-text">Learning something new</span></span></label>
+        <label class="option-card"><input type="radio" name="q5_energy" value="creating">
+            <span class="option-content"><span class="option-emoji">✨</span><span class="option-text">Creating something</span></span></label>
+        <label class="option-card"><input type="radio" name="q5_energy" value="connecting">
+            <span class="option-content"><span class="option-emoji">💬</span><span class="option-text">Connecting with people</span></span></label>
+    </div>
+</div>
 
-            <!-- Q8: Content Format -->
-            <div class="question-card" data-question="8">
-                <h2>What content format do you prefer?</h2>
-                <p class="help-text">For tutorials & guides</p>
-                <div class="options">
-                    <label class="option-card">
-                        <input type="radio" name="q8_format" value="text" required>
-                        <span class="option-content">
-                            <span class="option-emoji">📄</span>
-                            <span class="option-text">Written text<br><small>Articles & guides</small></span>
-                        </span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q8_format" value="video">
-                        <span class="option-content">
-                            <span class="option-emoji">🎥</span>
-                            <span class="option-text">Video tutorials<br><small>Visual demos</small></span>
-                        </span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q8_format" value="interactive">
-                        <span class="option-content">
-                            <span class="option-emoji">🎮</span>
-                            <span class="option-text">Interactive<br><small>Hands-on practice</small></span>
-                        </span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q8_format" value="mixed">
-                        <span class="option-content">
-                            <span class="option-emoji">🎨</span>
-                            <span class="option-text">Mix of all</span>
-                        </span>
-                    </label>
-                </div>
-            </div>
+<!-- ===== SECTION 2: INTERESTS & PASSIONS ===== -->
 
-            <!-- Q9: Timeline -->
-            <div class="question-card" data-question="9">
-                <h2>What's your project timeline?</h2>
-                <p class="help-text">Helps gauge urgency</p>
-                <div class="options">
-                    <label class="option-card">
-                        <input type="radio" name="q9_timeline" value="urgent" required>
-                        <span class="option-content">
-                            <span class="option-emoji">🏃</span>
-                            <span class="option-text">Urgent<br><small>ASAP</small></span>
-                        </span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q9_timeline" value="moderate">
-                        <span class="option-content">
-                            <span class="option-emoji">🚶</span>
-                            <span class="option-text">Moderate<br><small>Weeks to months</small></span>
-                        </span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q9_timeline" value="longterm">
-                        <span class="option-content">
-                            <span class="option-emoji">🌳</span>
-                            <span class="option-text">Long-term<br><small>Taking my time</small></span>
-                        </span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q9_timeline" value="exploring">
-                        <span class="option-content">
-                            <span class="option-emoji">🧭</span>
-                            <span class="option-text">Just exploring<br><small>No rush</small></span>
-                        </span>
-                    </label>
-                </div>
-            </div>
+<div class="question-card" data-question="6" data-section="interests">
+    <h2>What topics fascinate you?</h2>
+    <p class="help-text">I'll find resources and share insights on these</p>
+    <div class="options">
+        <label class="option-card"><input type="radio" name="q6_topics" value="health_wellness" required>
+            <span class="option-content"><span class="option-emoji">🌱</span><span class="option-text">Health & wellness</span></span></label>
+        <label class="option-card"><input type="radio" name="q6_topics" value="faith_spirituality">
+            <span class="option-content"><span class="option-emoji">🙏</span><span class="option-text">Faith & spirituality</span></span></label>
+        <label class="option-card"><input type="radio" name="q6_topics" value="business_money">
+            <span class="option-content"><span class="option-emoji">💰</span><span class="option-text">Business & money</span></span></label>
+        <label class="option-card"><input type="radio" name="q6_topics" value="technology">
+            <span class="option-content"><span class="option-emoji">💻</span><span class="option-text">Technology & innovation</span></span></label>
+    </div>
+</div>
 
-            <!-- Q10: Support Style -->
-            <div class="question-card" data-question="10">
-                <h2>How do you prefer help?</h2>
-                <p class="help-text">Last question!</p>
-                <div class="options">
-                    <label class="option-card">
-                        <input type="radio" name="q10_support" value="proactive" required>
-                        <span class="option-content">
-                            <span class="option-emoji">🎯</span>
-                            <span class="option-text">Be proactive<br><small>Suggest next steps</small></span>
-                        </span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q10_support" value="collaborative">
-                        <span class="option-content">
-                            <span class="option-emoji">🤝</span>
-                            <span class="option-text">Collaborative<br><small>Work together</small></span>
-                        </span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q10_support" value="reactive">
-                        <span class="option-content">
-                            <span class="option-emoji">🙋</span>
-                            <span class="option-text">Wait for me to ask</span>
-                        </span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q10_support" value="cheerleader">
-                        <span class="option-content">
-                            <span class="option-emoji">🎉</span>
-                            <span class="option-text">Encourage & celebrate<br><small>Keep me motivated</small></span>
-                        </span>
-                    </label>
-                </div>
-            </div>
+<div class="question-card" data-question="7" data-section="interests">
+    <h2>Do you enjoy creative activities?</h2>
+    <p class="help-text">Helps me suggest project ideas</p>
+    <div class="options">
+        <label class="option-card"><input type="radio" name="q7_creative" value="writing" required>
+            <span class="option-content"><span class="option-emoji">✍️</span><span class="option-text">Writing & journaling</span></span></label>
+        <label class="option-card"><input type="radio" name="q7_creative" value="art_design">
+            <span class="option-content"><span class="option-emoji">🎨</span><span class="option-text">Art, design, or crafting</span></span></label>
+        <label class="option-card"><input type="radio" name="q7_creative" value="cooking_baking">
+            <span class="option-content"><span class="option-emoji">👩‍🍳</span><span class="option-text">Cooking or baking</span></span></label>
+        <label class="option-card"><input type="radio" name="q7_creative" value="all_creative">
+            <span class="option-content"><span class="option-emoji">🌈</span><span class="option-text">Love all creative stuff!</span></span></label>
+    </div>
+</div>
+
+<div class="question-card" data-question="8" data-section="interests">
+    <h2>What do you enjoy watching or reading?</h2>
+    <p class="help-text">I'll share content you'll actually enjoy</p>
+    <div class="options">
+        <label class="option-card"><input type="radio" name="q8_content" value="documentaries" required>
+            <span class="option-content"><span class="option-emoji">🎬</span><span class="option-text">Documentaries & real stories</span></span></label>
+        <label class="option-card"><input type="radio" name="q8_content" value="faith_inspiration">
+            <span class="option-content"><span class="option-emoji">📿</span><span class="option-text">Faith & inspiration</span></span></label>
+        <label class="option-card"><input type="radio" name="q8_content" value="business_tutorials">
+            <span class="option-content"><span class="option-emoji">📈</span><span class="option-text">Business & how-to's</span></span></label>
+        <label class="option-card"><input type="radio" name="q8_content" value="variety">
+            <span class="option-content"><span class="option-emoji">📺</span><span class="option-text">A little bit of everything</span></span></label>
+    </div>
+</div>
+
+<div class="question-card" data-question="9" data-section="interests">
+    <h2>What kind of music speaks to you?</h2>
+    <p class="help-text">Tells me a lot about your vibe</p>
+    <div class="options">
+        <label class="option-card"><input type="radio" name="q9_music" value="gospel" required>
+            <span class="option-content"><span class="option-emoji">🎶</span><span class="option-text">Gospel & worship</span></span></label>
+        <label class="option-card"><input type="radio" name="q9_music" value="jazz_soul">
+            <span class="option-content"><span class="option-emoji">🎷</span><span class="option-text">Jazz, soul, or R&B</span></span></label>
+        <label class="option-card"><input type="radio" name="q9_music" value="oldies">
+            <span class="option-content"><span class="option-emoji">🎤</span><span class="option-text">Oldies & classics</span></span></label>
+        <label class="option-card"><input type="radio" name="q9_music" value="all_music">
+            <span class="option-content"><span class="option-emoji">🎧</span><span class="option-text">I love all music</span></span></label>
+    </div>
+</div>
+
+<div class="question-card" data-question="10" data-section="interests">
+    <h2>Which community matters most to you?</h2>
+    <p class="help-text">Understanding your world</p>
+    <div class="options">
+        <label class="option-card"><input type="radio" name="q10_community" value="church_faith" required>
+            <span class="option-content"><span class="option-emoji">⛪</span><span class="option-text">Church & faith community</span></span></label>
+        <label class="option-card"><input type="radio" name="q10_community" value="family">
+            <span class="option-content"><span class="option-emoji">👨‍👩‍👧‍👦</span><span class="option-text">Family above all</span></span></label>
+        <label class="option-card"><input type="radio" name="q10_community" value="entrepreneurs">
+            <span class="option-content"><span class="option-emoji">🚀</span><span class="option-text">Fellow entrepreneurs</span></span></label>
+        <label class="option-card"><input type="radio" name="q10_community" value="neighborhood">
+            <span class="option-content"><span class="option-emoji">🏘️</span><span class="option-text">Local neighborhood</span></span></label>
+    </div>
+</div>
+
+<!-- ===== SECTION 3: GOALS & DREAMS ===== -->
+
+<div class="question-card" data-question="11" data-section="goals">
+    <h2>What's your biggest goal this year?</h2>
+    <p class="help-text">Let's make it happen together</p>
+    <div class="options">
+        <label class="option-card"><input type="radio" name="q11_goal" value="launch_product" required>
+            <span class="option-content"><span class="option-emoji">🚀</span><span class="option-text">Launch a digital product</span></span></label>
+        <label class="option-card"><input type="radio" name="q11_goal" value="learn_skills">
+            <span class="option-content"><span class="option-emoji">📚</span><span class="option-text">Learn new tech skills</span></span></label>
+        <label class="option-card"><input type="radio" name="q11_goal" value="get_organized">
+            <span class="option-content"><span class="option-emoji">📋</span><span class="option-text">Get my life organized</span></span></label>
+        <label class="option-card"><input type="radio" name="q11_goal" value="build_income">
+            <span class="option-content"><span class="option-emoji">💰</span><span class="option-text">Build passive income</span></span></label>
+    </div>
+</div>
+
+<div class="question-card" data-question="12" data-section="goals">
+    <h2>If you had an extra hour each day?</h2>
+    <p class="help-text">Reveals what you truly value</p>
+    <div class="options">
+        <label class="option-card"><input type="radio" name="q12_extra_hour" value="learn" required>
+            <span class="option-content"><span class="option-emoji">📖</span><span class="option-text">Read or learn</span></span></label>
+        <label class="option-card"><input type="radio" name="q12_extra_hour" value="projects">
+            <span class="option-content"><span class="option-emoji">🔨</span><span class="option-text">Work on my projects</span></span></label>
+        <label class="option-card"><input type="radio" name="q12_extra_hour" value="relax">
+            <span class="option-content"><span class="option-emoji">🧘</span><span class="option-text">Rest and recharge</span></span></label>
+        <label class="option-card"><input type="radio" name="q12_extra_hour" value="family">
+            <span class="option-content"><span class="option-emoji">❤️</span><span class="option-text">Spend with family</span></span></label>
+    </div>
+</div>
+
+<div class="question-card" data-question="13" data-section="goals">
+    <h2>What skill would you love to master?</h2>
+    <p class="help-text">I'll help you get there step by step</p>
+    <div class="options">
+        <label class="option-card"><input type="radio" name="q13_skill" value="tech" required>
+            <span class="option-content"><span class="option-emoji">💻</span><span class="option-text">Technology & computers</span></span></label>
+        <label class="option-card"><input type="radio" name="q13_skill" value="writing">
+            <span class="option-content"><span class="option-emoji">✍️</span><span class="option-text">Writing & storytelling</span></span></label>
+        <label class="option-card"><input type="radio" name="q13_skill" value="design">
+            <span class="option-content"><span class="option-emoji">🎨</span><span class="option-text">Design & visual arts</span></span></label>
+        <label class="option-card"><input type="radio" name="q13_skill" value="marketing">
+            <span class="option-content"><span class="option-emoji">📣</span><span class="option-text">Marketing & sales</span></span></label>
+    </div>
+</div>
+
+<div class="question-card" data-question="14" data-section="goals">
+    <h2>What legacy do you want to leave?</h2>
+    <p class="help-text">Your deeper purpose</p>
+    <div class="options">
+        <label class="option-card"><input type="radio" name="q14_legacy" value="help_plan" required>
+            <span class="option-content"><span class="option-emoji">📋</span><span class="option-text">Help families be prepared</span></span></label>
+        <label class="option-card"><input type="radio" name="q14_legacy" value="inspire">
+            <span class="option-content"><span class="option-emoji">⭐</span><span class="option-text">Inspire creativity in kids</span></span></label>
+        <label class="option-card"><input type="radio" name="q14_legacy" value="knowledge">
+            <span class="option-content"><span class="option-emoji">🎓</span><span class="option-text">Share wisdom & knowledge</span></span></label>
+        <label class="option-card"><input type="radio" name="q14_legacy" value="financial">
+            <span class="option-content"><span class="option-emoji">🏠</span><span class="option-text">Financial freedom for family</span></span></label>
+    </div>
+</div>
+
+<div class="question-card" data-question="15" data-section="goals">
+    <h2>Where do you see yourself in 2 years?</h2>
+    <p class="help-text">Dream big!</p>
+    <div class="options">
+        <label class="option-card"><input type="radio" name="q15_future" value="business_owner" required>
+            <span class="option-content"><span class="option-emoji">👩‍💼</span><span class="option-text">Running my own business</span></span></label>
+        <label class="option-card"><input type="radio" name="q15_future" value="creative_retired">
+            <span class="option-content"><span class="option-emoji">🎨</span><span class="option-text">Retired & creating freely</span></span></label>
+        <label class="option-card"><input type="radio" name="q15_future" value="mentor">
+            <span class="option-content"><span class="option-emoji">🎓</span><span class="option-text">Teaching & mentoring others</span></span></label>
+        <label class="option-card"><input type="radio" name="q15_future" value="traveling">
+            <span class="option-content"><span class="option-emoji">✈️</span><span class="option-text">Traveling & enjoying life</span></span></label>
+    </div>
+</div>
+
+<!-- ===== SECTION 4: WORK STYLE ===== -->
+
+<div class="question-card" data-question="16" data-section="work">
+    <h2>Which project should I focus on first?</h2>
+    <p class="help-text">Your #1 priority right now</p>
+    <div class="options">
+        <label class="option-card"><input type="radio" name="q16_project" value="end_of_life_planner" required>
+            <span class="option-content"><span class="option-emoji">📋</span><span class="option-text">End of Life Planner</span></span></label>
+        <label class="option-card"><input type="radio" name="q16_project" value="kids_coloring_book">
+            <span class="option-content"><span class="option-emoji">🎨</span><span class="option-text">Kids Coloring Book</span></span></label>
+        <label class="option-card"><input type="radio" name="q16_project" value="website_building">
+            <span class="option-content"><span class="option-emoji">🌐</span><span class="option-text">Website Building</span></span></label>
+        <label class="option-card"><input type="radio" name="q16_project" value="ai_mastery">
+            <span class="option-content"><span class="option-emoji">🤖</span><span class="option-text">AI Mastery</span></span></label>
+    </div>
+</div>
+
+<div class="question-card" data-question="17" data-section="work">
+    <h2>How do you handle challenges?</h2>
+    <p class="help-text">So I know how to support you when things get tough</p>
+    <div class="options">
+        <label class="option-card"><input type="radio" name="q17_challenges" value="research" required>
+            <span class="option-content"><span class="option-emoji">🔍</span><span class="option-text">Research it myself first</span></span></label>
+        <label class="option-card"><input type="radio" name="q17_challenges" value="ask_help">
+            <span class="option-content"><span class="option-emoji">🙋</span><span class="option-text">Ask for help right away</span></span></label>
+        <label class="option-card"><input type="radio" name="q17_challenges" value="push_through">
+            <span class="option-content"><span class="option-emoji">💪</span><span class="option-text">Push through it</span></span></label>
+        <label class="option-card"><input type="radio" name="q17_challenges" value="step_back">
+            <span class="option-content"><span class="option-emoji">🧘</span><span class="option-text">Step back & come fresh</span></span></label>
+    </div>
+</div>
+
+<div class="question-card" data-question="18" data-section="work">
+    <h2>How organized are you right now?</h2>
+    <p class="help-text">No judgment! Just knowing where to start</p>
+    <div class="options">
+        <label class="option-card"><input type="radio" name="q18_organized" value="very" required>
+            <span class="option-content"><span class="option-emoji">✅</span><span class="option-text">Very organized</span></span></label>
+        <label class="option-card"><input type="radio" name="q18_organized" value="somewhat">
+            <span class="option-content"><span class="option-emoji">📎</span><span class="option-text">Somewhat - could be better</span></span></label>
+        <label class="option-card"><input type="radio" name="q18_organized" value="working_on_it">
+            <span class="option-content"><span class="option-emoji">🔧</span><span class="option-text">Working on it!</span></span></label>
+        <label class="option-card"><input type="radio" name="q18_organized" value="creative_chaos">
+            <span class="option-content"><span class="option-emoji">🌪️</span><span class="option-text">Beautiful creative chaos</span></span></label>
+    </div>
+</div>
+
+<div class="question-card" data-question="19" data-section="work">
+    <h2>What frustrates you about technology?</h2>
+    <p class="help-text">I'll work around these pain points</p>
+    <div class="options">
+        <label class="option-card"><input type="radio" name="q19_tech_frustration" value="complicated" required>
+            <span class="option-content"><span class="option-emoji">😤</span><span class="option-text">Too complicated</span></span></label>
+        <label class="option-card"><input type="radio" name="q19_tech_frustration" value="changes_fast">
+            <span class="option-content"><span class="option-emoji">😵</span><span class="option-text">Changes too fast</span></span></label>
+        <label class="option-card"><input type="radio" name="q19_tech_frustration" value="no_time">
+            <span class="option-content"><span class="option-emoji">⏰</span><span class="option-text">Not enough time to learn</span></span></label>
+        <label class="option-card"><input type="radio" name="q19_tech_frustration" value="where_to_start">
+            <span class="option-content"><span class="option-emoji">🤷</span><span class="option-text">Don't know where to start</span></span></label>
+    </div>
+</div>
+
+<div class="question-card" data-question="20" data-section="work">
+    <h2>Do you prefer working...</h2>
+    <p class="help-text">Shapes how I collaborate with you</p>
+    <div class="options">
+        <label class="option-card"><input type="radio" name="q20_work_style" value="solo" required>
+            <span class="option-content"><span class="option-emoji">🧘</span><span class="option-text">Solo focused time</span></span></label>
+        <label class="option-card"><input type="radio" name="q20_work_style" value="partner">
+            <span class="option-content"><span class="option-emoji">🤝</span><span class="option-text">With a thinking partner</span></span></label>
+        <label class="option-card"><input type="radio" name="q20_work_style" value="group">
+            <span class="option-content"><span class="option-emoji">👥</span><span class="option-text">In a group or team</span></span></label>
+        <label class="option-card"><input type="radio" name="q20_work_style" value="mix">
+            <span class="option-content"><span class="option-emoji">🔀</span><span class="option-text">Mix of all</span></span></label>
+    </div>
+</div>
+
+<!-- ===== SECTION 5: MEGAMIND SETTINGS ===== -->
+
+<div class="question-card" data-question="21" data-section="settings">
+    <h2>How should I talk to you?</h2>
+    <p class="help-text">Setting my communication style</p>
+    <div class="options">
+        <label class="option-card"><input type="radio" name="q21_communication" value="brief" required>
+            <span class="option-content"><span class="option-emoji">💬</span><span class="option-text">Brief - get to the point</span></span></label>
+        <label class="option-card"><input type="radio" name="q21_communication" value="detailed">
+            <span class="option-content"><span class="option-emoji">📚</span><span class="option-text">Detailed - explain everything</span></span></label>
+        <label class="option-card"><input type="radio" name="q21_communication" value="conversational">
+            <span class="option-content"><span class="option-emoji">☕</span><span class="option-text">Conversational - like a friend</span></span></label>
+        <label class="option-card"><input type="radio" name="q21_communication" value="adaptive">
+            <span class="option-content"><span class="option-emoji">🎭</span><span class="option-text">Depends on the topic</span></span></label>
+    </div>
+</div>
+
+<div class="question-card" data-question="22" data-section="settings">
+    <h2>How often should I check in?</h2>
+    <p class="help-text">Proactive updates & suggestions</p>
+    <div class="options">
+        <label class="option-card"><input type="radio" name="q22_checkin" value="daily" required>
+            <span class="option-content"><span class="option-emoji">📅</span><span class="option-text">Daily motivation</span></span></label>
+        <label class="option-card"><input type="radio" name="q22_checkin" value="few_days">
+            <span class="option-content"><span class="option-emoji">📆</span><span class="option-text">Every 2-3 days</span></span></label>
+        <label class="option-card"><input type="radio" name="q22_checkin" value="weekly">
+            <span class="option-content"><span class="option-emoji">🗓️</span><span class="option-text">Weekly deep dive</span></span></label>
+        <label class="option-card"><input type="radio" name="q22_checkin" value="on_demand">
+            <span class="option-content"><span class="option-emoji">🔕</span><span class="option-text">Only when I ask</span></span></label>
+    </div>
+</div>
+
+<div class="question-card" data-question="23" data-section="settings">
+    <h2>What should I help with most? (Pick 2)</h2>
+    <p class="help-text">My top priorities for you</p>
+    <div class="options">
+        <label class="option-card checkbox-card"><input type="checkbox" name="q23_features" value="research">
+            <span class="option-content"><span class="option-emoji">🔍</span><span class="option-text">Research & answers</span></span></label>
+        <label class="option-card checkbox-card"><input type="checkbox" name="q23_features" value="organization">
+            <span class="option-content"><span class="option-emoji">📁</span><span class="option-text">Organization & planning</span></span></label>
+        <label class="option-card checkbox-card"><input type="checkbox" name="q23_features" value="content">
+            <span class="option-content"><span class="option-emoji">✍️</span><span class="option-text">Content & writing</span></span></label>
+        <label class="option-card checkbox-card"><input type="checkbox" name="q23_features" value="automation">
+            <span class="option-content"><span class="option-emoji">⚙️</span><span class="option-text">Automating tasks</span></span></label>
+    </div>
+    <p class="validation-hint" id="featureHint"></p>
+</div>
+
+<div class="question-card" data-question="24" data-section="settings">
+    <h2>What level should I start at?</h2>
+    <p class="help-text">I'll match my explanations</p>
+    <div class="options">
+        <label class="option-card"><input type="radio" name="q24_level" value="beginner" required>
+            <span class="option-content"><span class="option-emoji">🌱</span><span class="option-text">Keep it simple<br><small>Explain everything</small></span></span></label>
+        <label class="option-card"><input type="radio" name="q24_level" value="intermediate">
+            <span class="option-content"><span class="option-emoji">📈</span><span class="option-text">I know the basics<br><small>Skip the obvious</small></span></span></label>
+        <label class="option-card"><input type="radio" name="q24_level" value="advanced">
+            <span class="option-content"><span class="option-emoji">🚀</span><span class="option-text">Challenge me<br><small>I catch on quick</small></span></span></label>
+    </div>
+</div>
+
+<div class="question-card" data-question="25" data-section="settings">
+    <h2>What role should MegaMind play?</h2>
+    <p class="help-text">Last one! This defines our relationship</p>
+    <div class="options">
+        <label class="option-card"><input type="radio" name="q25_role" value="coach" required>
+            <span class="option-content"><span class="option-emoji">🎯</span><span class="option-text">Proactive coach<br><small>Push me forward</small></span></span></label>
+        <label class="option-card"><input type="radio" name="q25_role" value="partner">
+            <span class="option-content"><span class="option-emoji">🤝</span><span class="option-text">Thinking partner<br><small>Work alongside me</small></span></span></label>
+        <label class="option-card"><input type="radio" name="q25_role" value="helper">
+            <span class="option-content"><span class="option-emoji">🙋</span><span class="option-text">On-call helper<br><small>There when I need you</small></span></span></label>
+        <label class="option-card"><input type="radio" name="q25_role" value="cheerleader">
+            <span class="option-content"><span class="option-emoji">🎉</span><span class="option-text">Cheerleader<br><small>Keep me inspired</small></span></span></label>
+    </div>
+</div>
 
             <div class="button-group">
                 <button type="button" class="btn btn-secondary" id="prevBtn" style="display: none;">← Previous</button>
@@ -375,12 +411,10 @@
 
         <div id="loadingState" style="display: none;">
             <div class="spinner"></div>
-            <p>Personalizing MegaMind...</p>
+            <p>Personalizing MegaMind just for you...</p>
         </div>
 
-        <footer>
-            <p>Your responses are saved securely</p>
-        </footer>
+        <footer><p>Your responses are saved securely</p></footer>
     </div>
     <script src="script.js"></script>
 </body>
