@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Complete - MegaMind Personalized!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container success-container">
+        <div class="success-icon">✅</div>
+        <h1>All Set!</h1>
+        <p class="subtitle">MegaMind has been personalized just for you</p>
+
+        <div class="summary-box">
+            <h3>Your Preferences:</h3>
+            <div id="summaryContent">
+                <!-- Filled by JavaScript -->
+            </div>
+        </div>
+
+        <div style="background: #f0f4ff; border-radius: 12px; padding: 20px; margin: 24px 0;">
+            <p style="margin-bottom: 12px;">📱 <strong>Check your WhatsApp!</strong></p>
+            <p style="font-size: 14px; color: var(--text-light);">
+                I've sent you a confirmation message with your personalization summary.
+            </p>
+        </div>
+
+        <div style="margin: 32px 0;">
+            <h2 style="font-size: 20px; margin-bottom: 16px;">🚀 What's Next?</h2>
+            <p style="margin-bottom: 16px; color: var(--text-light);">
+                Connect your apps to unlock even more capabilities:
+            </p>
+
+            <div style="display: flex; gap: 12px; margin-bottom: 24px;">
+                <div style="flex: 1; text-align: center; padding: 16px; background: var(--bg); border-radius: 8px;">
+                    <div style="font-size: 32px; margin-bottom: 8px;">📁</div>
+                    <div style="font-size: 14px; font-weight: 600;">Google Drive</div>
+                    <div style="font-size: 12px; color: var(--text-light); margin-top: 4px;">File management</div>
+                </div>
+                <div style="flex: 1; text-align: center; padding: 16px; background: var(--bg); border-radius: 8px;">
+                    <div style="font-size: 32px; margin-bottom: 8px;">📝</div>
+                    <div style="font-size: 14px; font-weight: 600;">Notion</div>
+                    <div style="font-size: 12px; color: var(--text-light); margin-top: 4px;">Project tracking</div>
+                </div>
+            </div>
+
+            <a href="oauth.html" class="btn btn-primary" style="display: block; text-align: center; text-decoration: none; margin-top: 16px;">
+                Connect Apps →
+            </a>
+
+            <p style="text-align: center; margin-top: 16px; font-size: 14px; color: var(--text-light);">
+                Or skip for now - you can always connect apps later
+            </p>
+        </div>
+
+        <footer style="margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border);">
+            <p style="font-size: 14px; color: var(--text-light);">
+                Start chatting with MegaMind on WhatsApp!<br>
+                <strong>+1 (678) 287-9864</strong>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Display quiz results from URL params
+        const params = new URLSearchParams(window.location.search);
+
+        const summaryContent = document.getElementById('summaryContent');
+
+        const mappings = {
+            project_priority: {
+                'end_of_life_planner': 'End of Life Planner',
+                'kids_coloring_book': 'Kids Coloring Book',
+                'website_building': 'Website Building Skills',
+                'ai_mastery': 'AI Mastery'
+            },
+            learning_style: {
+                'step_by_step': 'Step-by-step detailed walkthroughs',
+                'big_picture_first': 'Big picture overview first',
+                'quick_reference': 'Quick bullet points',
+                'mixed': 'Mixed approach'
+            },
+            communication_style: {
+                'brief': 'Brief and to the point',
+                'detailed': 'Detailed with context',
+                'adaptive': 'Adaptive based on topic'
+            },
+            challenge_level: {
+                'beginner': 'Beginner - start simple',
+                'intermediate': 'Intermediate - knows basics',
+                'advanced': 'Advanced - challenge me'
+            }
+        };
+
+        const featureMappings = {
+            'research': 'Research & Information',
+            'organization': 'Organization & Files',
+            'content_creation': 'Content Creation',
+            'automation': 'Automation'
+        };
+
+        let html = '';
+
+        // Project Priority
+        const projectKey = params.get('project_priority');
+        if (projectKey) {
+            html += `<div class="summary-item"><strong>Priority Project:</strong> <span>${mappings.project_priority[projectKey]}</span></div>`;
+        }
+
+        // Learning Style
+        const learningKey = params.get('learning_style');
+        if (learningKey) {
+            html += `<div class="summary-item"><strong>Learning Style:</strong> <span>${mappings.learning_style[learningKey]}</span></div>`;
+        }
+
+        // Communication
+        const commKey = params.get('communication_style');
+        if (commKey) {
+            html += `<div class="summary-item"><strong>Communication:</strong> <span>${mappings.communication_style[commKey]}</span></div>`;
+        }
+
+        // Challenge Level
+        const challengeKey = params.get('challenge_level');
+        if (challengeKey) {
+            html += `<div class="summary-item"><strong>Challenge Level:</strong> <span>${mappings.challenge_level[challengeKey]}</span></div>`;
+        }
+
+        // Feature Priorities
+        const features = params.getAll('feature_priorities');
+        if (features.length > 0) {
+            const featureNames = features.map(f => featureMappings[f]).join(', ');
+            html += `<div class="summary-item"><strong>Focus Areas:</strong> <span>${featureNames}</span></div>`;
+        }
+
+        summaryContent.innerHTML = html || '<p>Quiz responses not found. But don\'t worry - your preferences have been saved!</p>';
+    </script>
+</body>
+</html>

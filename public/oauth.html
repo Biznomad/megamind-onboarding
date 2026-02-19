@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect Your Apps - MegaMind</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔗 Connect Your Apps</h1>
+            <p class="subtitle">Unlock MegaMind's full potential by connecting your favorite tools</p>
+        </header>
+
+        <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 16px; border-radius: 8px; margin-bottom: 32px;">
+            <p style="font-size: 14px; color: #92400e; margin: 0;">
+                <strong>⚠️ OAuth Setup Pending</strong><br>
+                The Rube MCP server needs to be configured before you can connect apps.
+                This will be set up shortly!
+            </p>
+        </div>
+
+        <div class="app-grid">
+            <div class="app-card" data-app="google_drive">
+                <div class="app-icon">📁</div>
+                <div class="app-name">Google Drive</div>
+                <div class="app-status">Not connected</div>
+                <div style="margin-top: 12px; font-size: 12px; color: var(--text-light);">
+                    File management for your End of Life Planner
+                </div>
+            </div>
+
+            <div class="app-card" data-app="notion">
+                <div class="app-icon">📝</div>
+                <div class="app-name">Notion</div>
+                <div class="app-status">Not connected</div>
+                <div style="margin-top: 12px; font-size: 12px; color: var(--text-light);">
+                    Project tracking and knowledge base
+                </div>
+            </div>
+
+            <div class="app-card" data-app="gumroad">
+                <div class="app-icon">💰</div>
+                <div class="app-name">Gumroad</div>
+                <div class="app-status">Not connected</div>
+                <div style="margin-top: 12px; font-size: 12px; color: var(--text-light);">
+                    Sales analytics for digital products
+                </div>
+            </div>
+
+            <div class="app-card" data-app="gmail">
+                <div class="app-icon">📧</div>
+                <div class="app-name">Gmail</div>
+                <div class="app-status">Not connected</div>
+                <div style="margin-top: 12px; font-size: 12px; color: var(--text-light);">
+                    Email management and drafting
+                </div>
+            </div>
+        </div>
+
+        <div style="background: var(--bg); border-radius: 12px; padding: 24px; margin-top: 32px;">
+            <h3 style="font-size: 18px; margin-bottom: 16px;">📊 Integration Status</h3>
+            <div id="statusList">
+                <p style="color: var(--text-light); font-size: 14px;">Loading...</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 32px; text-align: center;">
+            <p style="font-size: 14px; color: var(--text-light); margin-bottom: 16px;">
+                App connections will be available once Rube MCP is configured
+            </p>
+            <a href="success.html" class="btn btn-secondary" style="display: inline-block; text-decoration: none;">
+                ← Back to Summary
+            </a>
+        </div>
+
+        <footer style="margin-top: 40px;">
+            <p style="font-size: 13px; color: var(--text-light); text-align: center;">
+                🔒 All connections are secure via OAuth 2.0<br>
+                You can disconnect anytime from your app settings
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Load integration status
+        async function loadStatus() {
+            try {
+                const response = await fetch('/api/integrations/status');
+                const status = await response.json();
+
+                const statusList = document.getElementById('statusList');
+                let html = '';
+
+                const apps = ['google_drive', 'notion', 'gumroad', 'gmail'];
+                apps.forEach(app => {
+                    const appData = status[app] || { connected: false };
+                    const icon = appData.connected ? '✅' : '❌';
+                    const statusText = appData.connected ? 'Connected' : 'Not connected';
+
+                    html += `<div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border);">
+                        <span>${icon} ${app.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}</span>
+                        <span style="color: var(--text-light);">${statusText}</span>
+                    </div>`;
+
+                    // Update card UI
+                    const card = document.querySelector(`.app-card[data-app="${app}"]`);
+                    if (card && appData.connected) {
+                        card.classList.add('connected');
+                        card.querySelector('.app-status').textContent = 'Connected ✓';
+                        card.querySelector('.app-status').classList.add('connected');
+                    }
+                });
+
+                statusList.innerHTML = html || '<p style="color: var(--text-light);">No integration data available</p>';
+
+                // Check Rube status
+                if (status.rube_mcp && status.rube_mcp.installed) {
+                    document.querySelector('.app-grid').style.opacity = '1';
+                    document.querySelector('.app-grid').style.pointerEvents = 'auto';
+
+                    // Add click handlers for OAuth
+                    document.querySelectorAll('.app-card').forEach(card => {
+                        card.addEventListener('click', () => initiateOAuth(card.dataset.app));
+                    });
+                }
+
+            } catch (error) {
+                console.error('Failed to load status:', error);
+                document.getElementById('statusList').innerHTML = '<p style="color: var(--danger);">Failed to load status</p>';
+            }
+        }
+
+        async function initiateOAuth(app) {
+            const card = document.querySelector(`.app-card[data-app="${app}"]`);
+            if (card.classList.contains('connected')) {
+                alert(`${app.replace('_', ' ')} is already connected!`);
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/oauth/initiate?app_name=${app}`, {
+                    method: 'POST'
+                });
+
+                const result = await response.json();
+
+                if (result.oauth_url) {
+                    // Open OAuth URL
+                    window.location.href = result.oauth_url;
+                } else {
+                    alert(result.message || 'OAuth not yet configured');
+                }
+            } catch (error) {
+                alert('Failed to initiate OAuth. Please try again.');
+            }
+        }
+
+        // Load status on page load
+        loadStatus();
+
+        // Refresh status every 5 seconds
+        setInterval(loadStatus, 5000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "name": "megamind-onboarding-portal",
+  "version": "2.0.0",
+  "description": "MegaMind 10-Question Onboarding + OAuth Integration",
+  "dependencies": {
+    "ssh2": "^1.15.0"
+  }
+}
