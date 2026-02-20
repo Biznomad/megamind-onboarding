@@ -1,8 +1,8 @@
-// Netlify Function: Chat with MegaMind via NVIDIA NIM API
+// Netlify Function: Chat with MegaMind via OpenRouter API
 // Direct API call for fast responses (no SSH overhead)
 
-const NVIDIA_API = 'https://integrate.api.nvidia.com/v1/chat/completions';
-const MODEL = 'nvidia/meta/llama-3.3-70b-instruct';
+const API_URL = 'https://openrouter.ai/api/v1/chat/completions';
+const MODEL = 'google/gemini-2.0-flash-001';
 
 function buildSystemPrompt(profile) {
   if (!profile) {
@@ -101,19 +101,21 @@ exports.handler = async (event) => {
       ...messages.slice(-20) // Keep last 20 messages for context window
     ];
 
-    const apiKey = process.env.NVIDIA_API_KEY;
+    const apiKey = process.env.OPENROUTER_API_KEY;
     if (!apiKey) {
-      return { statusCode: 503, headers, body: JSON.stringify({ error: 'Chat not configured. Set NVIDIA_API_KEY.' }) };
+      return { statusCode: 503, headers, body: JSON.stringify({ error: 'Chat not configured. Set OPENROUTER_API_KEY.' }) };
     }
 
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 22000); // 22s abort before Netlify's 26s limit
 
-    const response = await fetch(NVIDIA_API, {
+    const response = await fetch(API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
+        'Authorization': `Bearer ${apiKey}`,
+        'HTTP-Referer': 'https://megamind-onboarding.netlify.app',
+        'X-Title': 'MegaMind Dashboard'
       },
       body: JSON.stringify({
         model: MODEL,
@@ -128,7 +130,7 @@ exports.handler = async (event) => {
 
     if (!response.ok) {
       const errText = await response.text();
-      console.error('NVIDIA API error:', response.status, errText);
+      console.error('OpenRouter API error:', response.status, errText);
       if (response.status === 429) {
         return {
           statusCode: 200,
