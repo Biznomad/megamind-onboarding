@@ -4,13 +4,27 @@
 const API_URL = 'https://openrouter.ai/api/v1/chat/completions';
 const MODEL = 'google/gemini-2.0-flash-001';
 
+// Safely convert any value (string or array) to a display string
+function str(val, fallback) {
+  if (!val) return fallback || '';
+  if (Array.isArray(val)) return val.join(', ');
+  return String(val);
+}
+function clean(val, fallback) {
+  return str(val, fallback).replace(/_/g, ' ');
+}
+function first(val) {
+  if (Array.isArray(val)) return val[0] || '';
+  return val || '';
+}
+
 function buildSystemPrompt(profile) {
   if (!profile) {
     return `You are MegaMind, an elite personal AI assistant. You are warm, helpful, and proactive. Keep responses concise but thorough. Use simple language. Be encouraging.`;
   }
 
   const p = profile;
-  const name = p.q1_name || 'friend';
+  const name = first(p.q1_name) || 'friend';
   const nameMap = { jacquie: 'Jacquie', mrs_jones: 'Mrs. Jones', j: 'J', boss: 'Boss' };
   const displayName = nameMap[name] || name;
 
@@ -34,33 +48,28 @@ function buildSystemPrompt(profile) {
     advanced: 'Be direct. Introduce complex ideas. Challenge their thinking.'
   };
 
-  const topics = Array.isArray(p.q7_topics) ? p.q7_topics.join(', ') : (p.q7_topics || '');
-  const music = Array.isArray(p.q10_music) ? p.q10_music.join(', ') : (p.q10_music || '');
-  const creative = Array.isArray(p.q8_creative) ? p.q8_creative.join(', ') : (p.q8_creative || '');
-  const features = Array.isArray(p.q24_features) ? p.q24_features.join(', ') : (p.q24_features || '');
-
   return `You are MegaMind, an elite personal AI assistant for ${displayName}. You are intelligent, warm, and deeply personalized to their needs.
 
 ## About ${displayName}
-- Personality: ${p.q4_personality || 'thoughtful'}
-- Energized by: ${p.q6_energy || 'learning'}
-- Interests: ${topics.replace(/_/g, ' ')}
-- Creative outlets: ${creative.replace(/_/g, ' ')}
-- Music: ${music.replace(/_/g, ' ')}
-- Community: ${(Array.isArray(p.q11_community) ? p.q11_community.join(', ') : p.q11_community || '').replace(/_/g, ' ')}
+- Personality: ${clean(p.q4_personality, 'thoughtful')}
+- Energized by: ${clean(p.q6_energy, 'learning')}
+- Interests: ${clean(p.q7_topics)}
+- Creative outlets: ${clean(p.q8_creative)}
+- Music: ${clean(p.q10_music)}
+- Community: ${clean(p.q11_community)}
 
 ## Goals
-- Biggest goal: ${(p.q12_goal || '').replace(/_/g, ' ')}
-- Wants to master: ${(p.q14_skill || '').replace(/_/g, ' ')}
-- Legacy: ${(p.q15_legacy || '').replace(/_/g, ' ')}
-- Priority project: ${(p.q17_project || '').replace(/_/g, ' ')}
-- 2-year vision: ${(p.q16_future || '').replace(/_/g, ' ')}
+- Biggest goal: ${clean(p.q12_goal)}
+- Wants to master: ${clean(p.q14_skill)}
+- Legacy: ${clean(p.q15_legacy)}
+- Priority project: ${clean(p.q17_project)}
+- 2-year vision: ${clean(p.q16_future)}
 
 ## How to Communicate
-- Style: ${commMap[p.q22_communication] || commMap.conversational}
-- Role: ${roleMap[p.q26_role] || roleMap.partner}
-- Level: ${levelMap[p.q25_level] || levelMap.beginner}
-- Focus on: ${features.replace(/_/g, ' ')}
+- Style: ${commMap[first(p.q22_communication)] || commMap.conversational}
+- Role: ${roleMap[first(p.q26_role)] || roleMap.partner}
+- Level: ${levelMap[first(p.q25_level)] || levelMap.beginner}
+- Focus on: ${clean(p.q24_features)}
 
 ## Rules
 - Always address them as ${displayName}
@@ -151,7 +160,7 @@ exports.handler = async (event) => {
     };
 
   } catch (error) {
-    console.error('Chat error:', error.message);
+    console.error('Chat error:', error.name, error.message, error.stack);
 
     // Return as a 200 with response field so the client displays it as a normal message, not a broken error
     let friendlyMessage;
