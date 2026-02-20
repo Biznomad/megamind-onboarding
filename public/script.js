@@ -1,17 +1,16 @@
-// MegaMind 26-Question Personalization Quiz
+// MegaMind 26-Question Personalization Quiz - All Multi-Select
 let currentQuestion = 1;
 const totalQuestions = 26;
 
-// Questions that allow multiple selections (checkboxes)
-const multiSelectQuestions = {
-    5: 'q5_unwind',
-    7: 'q7_topics',
-    8: 'q8_creative',
-    9: 'q9_content',
-    10: 'q10_music',
-    11: 'q11_community',
-    24: 'q24_features'  // pick exactly 2
-};
+// ALL questions are now multi-select
+const allFields = [
+    'q1_name','q2_rhythm','q3_timezone','q4_personality',
+    'q5_unwind','q6_energy',
+    'q7_topics','q8_creative','q9_content','q10_music','q11_community',
+    'q12_goal','q13_extra_hour','q14_skill','q15_legacy','q16_future',
+    'q17_project','q18_challenges','q19_organized','q20_tech_frustration','q21_work_style',
+    'q22_communication','q23_checkin','q24_features','q25_level','q26_role'
+];
 
 const sections = {
     about: { title: "About You", subtitle: "Getting to know the real you", range: [1, 6] },
@@ -28,15 +27,14 @@ const submitBtn = document.getElementById('submitBtn');
 const progressBar = document.getElementById('progressBar');
 const progressText = document.getElementById('progressText');
 const loadingState = document.getElementById('loadingState');
-const featureHint = document.getElementById('featureHint');
 const sectionTitle = document.getElementById('sectionTitle');
 const sectionSubtitle = document.getElementById('sectionSubtitle');
 
 document.addEventListener('DOMContentLoaded', () => {
+    addHintElements();
     updateProgress();
     setupEventListeners();
 
-    // Check for startAt param (from dashboard edit button)
     const urlParams = new URLSearchParams(window.location.search);
     const startAt = parseInt(urlParams.get('startAt'));
     if (startAt && startAt >= 1 && startAt <= totalQuestions) {
@@ -47,32 +45,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// Dynamically add hint <p> below each question's options div if not already present
+function addHintElements() {
+    for (let i = 1; i <= totalQuestions; i++) {
+        const card = document.querySelector(`.question-card[data-question="${i}"]`);
+        if (!card) continue;
+        let hint = card.querySelector('.multi-hint, .validation-hint');
+        if (!hint) {
+            hint = document.createElement('p');
+            hint.className = 'multi-hint';
+            hint.id = `q${i}Hint`;
+            hint.textContent = 'Tap to select, then press Next';
+            const optionsDiv = card.querySelector('.options');
+            if (optionsDiv) optionsDiv.after(hint);
+        }
+    }
+}
+
 function setupEventListeners() {
     prevBtn.addEventListener('click', previousQuestion);
     nextBtn.addEventListener('click', nextQuestion);
     form.addEventListener('submit', handleSubmit);
 
-    // Auto-advance on radio selection (single-select questions only)
-    document.querySelectorAll('input[type="radio"]').forEach(radio => {
-        radio.addEventListener('change', () => {
-            if (currentQuestion < totalQuestions && !multiSelectQuestions[currentQuestion]) {
-                setTimeout(nextQuestion, 300);
-            }
+    // Update hints when any checkbox changes
+    document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+        cb.addEventListener('change', () => {
+            const card = cb.closest('.question-card');
+            if (!card) return;
+            const qNum = card.dataset.question;
+            const fieldName = cb.name;
+            updateMultiHint(qNum, fieldName);
         });
     });
-
-    // Feature validation (Q24 - pick exactly 2)
-    document.querySelectorAll('input[name="q24_features"]').forEach(checkbox => {
-        checkbox.addEventListener('change', validateFeatures);
-    });
-
-    // Update multi-select hints when checkboxes change
-    for (const [qNum, fieldName] of Object.entries(multiSelectQuestions)) {
-        if (parseInt(qNum) === 24) continue; // features has its own validator
-        document.querySelectorAll(`input[name="${fieldName}"]`).forEach(cb => {
-            cb.addEventListener('change', () => updateMultiHint(qNum, fieldName));
-        });
-    }
 }
 
 function updateMultiHint(qNum, fieldName) {
@@ -129,34 +133,15 @@ function showQuestion(num) {
 
 function nextQuestion() {
     const current = document.querySelector(`.question-card[data-question="${currentQuestion}"]`);
-    let isValid = false;
+    const checked = current.querySelectorAll('input[type="checkbox"]:checked');
 
-    if (currentQuestion === 24) {
-        // Q24 features: exactly 2
-        const checked = current.querySelectorAll('input[type="checkbox"]:checked');
-        isValid = checked.length === 2;
-        if (!isValid) {
-            featureHint.textContent = checked.length < 2 ? 'Please select 2 options' : 'Select only 2';
-            featureHint.classList.add('error');
-            return;
+    if (checked.length === 0) {
+        const hint = current.querySelector('.multi-hint, .validation-hint');
+        if (hint) {
+            hint.textContent = 'Please select at least one option';
+            hint.style.color = 'var(--danger)';
         }
-    } else if (multiSelectQuestions[currentQuestion]) {
-        // Other multi-select: at least 1
-        const checked = current.querySelectorAll('input[type="checkbox"]:checked');
-        isValid = checked.length >= 1;
-        if (!isValid) {
-            alert('Please select at least one option');
-            return;
-        }
-    } else {
-        // Radio: one selected
-        current.querySelectorAll('input[type="radio"]').forEach(input => {
-            if (input.checked) isValid = true;
-        });
-        if (!isValid) {
-            alert('Please select an option');
-            return;
-        }
+        return;
     }
 
     saveAnswer();
@@ -171,34 +156,14 @@ function previousQuestion() {
     }
 }
 
-function validateFeatures() {
-    const checked = document.querySelectorAll('input[name="q24_features"]:checked');
-    if (checked.length === 2) {
-        featureHint.textContent = 'Perfect!';
-        featureHint.classList.remove('error');
-        featureHint.style.color = 'var(--success)';
-    } else if (checked.length > 2) {
-        const last = Array.from(checked).pop();
-        last.checked = false;
-        featureHint.textContent = 'Select only 2';
-        featureHint.classList.add('error');
-    } else {
-        featureHint.textContent = `${checked.length}/2 selected`;
-        featureHint.classList.remove('error');
-        featureHint.style.color = '';
-    }
-}
-
 function saveAnswer() {
     const formData = new FormData(form);
     const answers = {};
-    const multiFields = Object.values(multiSelectQuestions);
 
-    for (let [key, value] of formData.entries()) {
-        if (multiFields.includes(key)) {
-            answers[key] = formData.getAll(key);
-        } else {
-            answers[key] = value;
+    for (const field of allFields) {
+        const values = formData.getAll(field);
+        if (values.length > 0) {
+            answers[field] = values;
         }
     }
     localStorage.setItem('megamind_answers', JSON.stringify(answers));
@@ -216,15 +181,11 @@ function loadSavedProgress() {
     if (answers) {
         const data = JSON.parse(answers);
         Object.entries(data).forEach(([key, value]) => {
-            if (Array.isArray(value)) {
-                value.forEach(v => {
-                    const input = document.querySelector(`input[name="${key}"][value="${v}"]`);
-                    if (input) input.checked = true;
-                });
-            } else {
-                const input = document.querySelector(`input[name="${key}"][value="${value}"]`);
+            const values = Array.isArray(value) ? value : [value];
+            values.forEach(v => {
+                const input = document.querySelector(`input[name="${key}"][value="${v}"]`);
                 if (input) input.checked = true;
-            }
+            });
         });
     }
 }
@@ -233,37 +194,18 @@ async function handleSubmit(e) {
     e.preventDefault();
 
     const formData = new FormData(form);
-    const multiFields = Object.values(multiSelectQuestions);
-
     const responses = {};
-    const allFields = [
-        'q1_name','q2_rhythm','q3_timezone','q4_personality',
-        'q5_unwind','q6_energy',
-        'q7_topics','q8_creative','q9_content','q10_music','q11_community',
-        'q12_goal','q13_extra_hour','q14_skill','q15_legacy','q16_future',
-        'q17_project','q18_challenges','q19_organized','q20_tech_frustration','q21_work_style',
-        'q22_communication','q23_checkin','q24_features','q25_level','q26_role'
-    ];
 
-    for (const key of allFields) {
-        if (multiFields.includes(key)) {
-            responses[key] = formData.getAll(key);
-        } else {
-            responses[key] = formData.get(key);
-        }
+    for (const field of allFields) {
+        responses[field] = formData.getAll(field);
     }
 
     // Validate all answered
-    for (let key in responses) {
-        if (!responses[key] || (Array.isArray(responses[key]) && responses[key].length === 0)) {
+    for (const key of allFields) {
+        if (!responses[key] || responses[key].length === 0) {
             alert('Please answer all questions before submitting');
             return;
         }
-    }
-
-    if (responses.q24_features.length !== 2) {
-        alert('Please select exactly 2 feature priorities (Question 24)');
-        return;
     }
 
     form.style.display = 'none';
