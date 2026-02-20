@@ -9,6 +9,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="dashboard.css">
+    <script>
+        // Quiz-first gate: redirect BEFORE page renders if quiz not completed
+        if (!localStorage.getItem('megamind_completed')) {
+            window.location.replace('/index.html');
+        }
+    </script>
 </head>
 <body class="dashboard-dark">
     <div class="dash-container">

@@ -45,20 +45,6 @@ let syncInProgress = false;
 
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
-    // Quiz-first: redirect to quiz if not completed
-    const completed = localStorage.getItem('megamind_completed');
-    if (!completed) {
-        // Quick check with server too
-        fetch('/.netlify/functions/get-profile').then(r => r.json()).then(data => {
-            if (!data.responses || data.status !== 'completed') {
-                window.location.href = '/index.html';
-            }
-        }).catch(() => {
-            // If server unreachable, check local only
-            window.location.href = '/index.html';
-        });
-    }
-
     loadProfile();
     loadInstalledSkills();
     syncChatsFromServer().then(() => {
