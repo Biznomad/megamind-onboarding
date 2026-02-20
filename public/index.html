@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MegaMind - Get to Know You</title>
     <link rel="stylesheet" href="style.css">
+    <script>
+        var APP_VERSION = '2.0';
+        if (localStorage.getItem('megamind_version') !== APP_VERSION) {
+            localStorage.clear();
+            localStorage.setItem('megamind_version', APP_VERSION);
+        }
+    </script>
 </head>
 <body>
     <div class="container">
