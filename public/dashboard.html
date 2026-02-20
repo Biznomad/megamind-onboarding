@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MegaMind Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <div class="dash-container">
+
+        <!-- Header -->
+        <header class="dash-header">
+            <div class="dash-avatar">🧠</div>
+            <h1 id="welcomeMsg">Welcome back!</h1>
+            <p class="subtitle" id="welcomeSub">Your personal AI command center</p>
+        </header>
+
+        <!-- Tab Navigation -->
+        <nav class="dash-tabs">
+            <button class="tab active" data-tab="profile" onclick="switchTab('profile')">My Profile</button>
+            <button class="tab" data-tab="apps" onclick="switchTab('apps')">Apps</button>
+            <button class="tab" data-tab="skills" onclick="switchTab('skills')">AI Skills</button>
+            <button class="tab" data-tab="learn" onclick="switchTab('learn')">Learn</button>
+        </nav>
+
+        <!-- ===== TAB: MY PROFILE ===== -->
+        <section id="tab-profile" class="tab-content active">
+            <div id="profileLoading" class="loading-box">
+                <div class="spinner"></div>
+                <p>Loading your profile...</p>
+            </div>
+
+            <div id="profileContent" style="display:none;">
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3>About You</h3>
+                        <button class="edit-btn" onclick="editSection('about')">Edit</button>
+                    </div>
+                    <div id="profile-about" class="profile-grid"></div>
+                </div>
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3>Interests & Passions</h3>
+                        <button class="edit-btn" onclick="editSection('interests')">Edit</button>
+                    </div>
+                    <div id="profile-interests" class="profile-grid"></div>
+                </div>
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3>Goals & Dreams</h3>
+                        <button class="edit-btn" onclick="editSection('goals')">Edit</button>
+                    </div>
+                    <div id="profile-goals" class="profile-grid"></div>
+                </div>
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3>Work Style</h3>
+                        <button class="edit-btn" onclick="editSection('work')">Edit</button>
+                    </div>
+                    <div id="profile-work" class="profile-grid"></div>
+                </div>
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3>MegaMind Settings</h3>
+                        <button class="edit-btn" onclick="editSection('settings')">Edit</button>
+                    </div>
+                    <div id="profile-settings" class="profile-grid"></div>
+                </div>
+
+                <div style="text-align:center; margin-top:24px;">
+                    <a href="index.html?retake=1" class="btn btn-secondary" style="display:inline-block; text-decoration:none;">Retake Full Quiz</a>
+                </div>
+            </div>
+
+            <div id="profileEmpty" style="display:none; text-align:center; padding:40px 20px;">
+                <div style="font-size:64px; margin-bottom:16px;">👋</div>
+                <h2>Let's Get Started!</h2>
+                <p style="color:var(--text-light); margin:12px 0 24px;">Take a quick quiz so MegaMind can learn about you.</p>
+                <a href="index.html" class="btn btn-primary" style="display:inline-block; text-decoration:none; padding:16px 48px;">Start Quiz</a>
+            </div>
+        </section>
+
+        <!-- ===== TAB: APPS ===== -->
+        <section id="tab-apps" class="tab-content">
+            <div class="section-card">
+                <h3 style="margin-bottom:8px;">Connected Apps</h3>
+                <p style="color:var(--text-light); font-size:14px; margin-bottom:20px;">Connect your apps so MegaMind can help manage your files, emails, projects, and sales.</p>
+
+                <div class="app-list">
+                    <div class="app-row" id="app-google_drive">
+                        <div class="app-info">
+                            <span class="app-icon-sm">📁</span>
+                            <div>
+                                <div class="app-title">Google Drive</div>
+                                <div class="app-desc">Organize files, search documents, manage your projects</div>
+                            </div>
+                        </div>
+                        <button class="connect-btn" onclick="connectApp('google_drive')">Connect</button>
+                    </div>
+
+                    <div class="app-row" id="app-gmail">
+                        <div class="app-info">
+                            <span class="app-icon-sm">📧</span>
+                            <div>
+                                <div class="app-title">Gmail</div>
+                                <div class="app-desc">Draft emails, organize inbox, track conversations</div>
+                            </div>
+                        </div>
+                        <button class="connect-btn" onclick="connectApp('gmail')">Connect</button>
+                    </div>
+
+                    <div class="app-row" id="app-notion">
+                        <div class="app-info">
+                            <span class="app-icon-sm">📝</span>
+                            <div>
+                                <div class="app-title">Notion</div>
+                                <div class="app-desc">Track projects, build knowledge bases, plan content</div>
+                            </div>
+                        </div>
+                        <button class="connect-btn" onclick="connectApp('notion')">Connect</button>
+                    </div>
+
+                    <div class="app-row" id="app-gumroad">
+                        <div class="app-info">
+                            <span class="app-icon-sm">💰</span>
+                            <div>
+                                <div class="app-title">Gumroad</div>
+                                <div class="app-desc">Track sales, manage products, customer insights</div>
+                            </div>
+                        </div>
+                        <button class="connect-btn" onclick="connectApp('gumroad')">Connect</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h3 style="margin-bottom:8px;">How It Works</h3>
+                <div class="steps-list">
+                    <div class="step">
+                        <div class="step-num">1</div>
+                        <div><strong>Tap Connect</strong> - opens a secure login page for that app</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">2</div>
+                        <div><strong>Sign in</strong> - use your normal login for that app</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">3</div>
+                        <div><strong>Allow access</strong> - MegaMind only asks for what it needs</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">4</div>
+                        <div><strong>Done!</strong> - MegaMind confirms on WhatsApp when connected</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-banner">
+                <strong>Your data stays yours.</strong> MegaMind only accesses what you allow and never shares your information with anyone.
+            </div>
+        </section>
+
+        <!-- ===== TAB: AI SKILLS ===== -->
+        <section id="tab-skills" class="tab-content">
+            <div class="section-card">
+                <h3 style="margin-bottom:4px;">AI Superpowers for MegaMind</h3>
+                <p style="color:var(--text-light); font-size:14px; margin-bottom:20px;">Each skill teaches MegaMind something new. Tap "Enable" and it learns instantly!</p>
+            </div>
+
+            <!-- Active Skills -->
+            <div class="skill-category">
+                <h4 class="cat-label">Already Active</h4>
+
+                <div class="skill-card active-skill">
+                    <div class="skill-top">
+                        <span class="skill-icon">🌤️</span>
+                        <div class="skill-info">
+                            <div class="skill-name">Weather Buddy</div>
+                            <div class="skill-simple">Tells you the weather so you know what to wear today</div>
+                        </div>
+                        <span class="status-badge active">Active</span>
+                    </div>
+                </div>
+
+                <div class="skill-card active-skill">
+                    <div class="skill-top">
+                        <span class="skill-icon">🔍</span>
+                        <div class="skill-info">
+                            <div class="skill-name">Web Search</div>
+                            <div class="skill-simple">Searches the internet to find answers for you</div>
+                        </div>
+                        <span class="status-badge active">Active</span>
+                    </div>
+                </div>
+
+                <div class="skill-card active-skill">
+                    <div class="skill-top">
+                        <span class="skill-icon">💚</span>
+                        <div class="skill-info">
+                            <div class="skill-name">Health Check</div>
+                            <div class="skill-simple">Makes sure MegaMind is running smoothly for you</div>
+                        </div>
+                        <span class="status-badge active">Active</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Installable Skills -->
+            <div class="skill-category">
+                <h4 class="cat-label">Ready to Enable</h4>
+
+                <div class="skill-card" id="skill-superpowers-mode">
+                    <div class="skill-top">
+                        <span class="skill-icon">🧠</span>
+                        <div class="skill-info">
+                            <div class="skill-name">Super Brain Mode</div>
+                            <div class="skill-simple">Makes MegaMind think extra hard on tough questions</div>
+                        </div>
+                        <button class="enable-btn" onclick="installSkill('superpowers-mode', this)">Enable</button>
+                    </div>
+                    <div class="skill-benefit">Like upgrading from a regular calculator to a genius mathematician</div>
+                </div>
+
+                <div class="skill-card" id="skill-daily-planner">
+                    <div class="skill-top">
+                        <span class="skill-icon">📋</span>
+                        <div class="skill-info">
+                            <div class="skill-name">Daily Planner</div>
+                            <div class="skill-simple">Plans your whole day every morning like a personal secretary</div>
+                        </div>
+                        <button class="enable-btn" onclick="installSkill('daily-planner', this)">Enable</button>
+                    </div>
+                    <div class="skill-benefit">Wake up to a simple list of what to do today, in order of importance</div>
+                </div>
+
+                <div class="skill-card" id="skill-writing-helper">
+                    <div class="skill-top">
+                        <span class="skill-icon">✍️</span>
+                        <div class="skill-info">
+                            <div class="skill-name">Writing Helper</div>
+                            <div class="skill-simple">Writes emails, posts, and documents for you</div>
+                        </div>
+                        <button class="enable-btn" onclick="installSkill('writing-helper', this)">Enable</button>
+                    </div>
+                    <div class="skill-benefit">Just tell MegaMind what you want to say and it writes it perfectly</div>
+                </div>
+
+                <div class="skill-card" id="skill-research-pro">
+                    <div class="skill-top">
+                        <span class="skill-icon">🔬</span>
+                        <div class="skill-info">
+                            <div class="skill-name">Research Pro</div>
+                            <div class="skill-simple">Digs deep into any topic and gives you a simple summary</div>
+                        </div>
+                        <button class="enable-btn" onclick="installSkill('research-pro', this)">Enable</button>
+                    </div>
+                    <div class="skill-benefit">Ask anything and get a clear answer with sources, no Googling needed</div>
+                </div>
+
+                <div class="skill-card" id="skill-budget-buddy">
+                    <div class="skill-top">
+                        <span class="skill-icon">💵</span>
+                        <div class="skill-info">
+                            <div class="skill-name">Budget Buddy</div>
+                            <div class="skill-simple">Helps you track money and plan your spending</div>
+                        </div>
+                        <button class="enable-btn" onclick="installSkill('budget-buddy', this)">Enable</button>
+                    </div>
+                    <div class="skill-benefit">Like having a friendly accountant who explains everything simply</div>
+                </div>
+
+                <div class="skill-card" id="skill-brand-builder">
+                    <div class="skill-top">
+                        <span class="skill-icon">🎨</span>
+                        <div class="skill-info">
+                            <div class="skill-name">Brand Builder</div>
+                            <div class="skill-simple">Makes your business look professional and polished</div>
+                        </div>
+                        <button class="enable-btn" onclick="installSkill('brand-builder', this)">Enable</button>
+                    </div>
+                    <div class="skill-benefit">Helps with colors, logos, social media looks, and business identity</div>
+                </div>
+
+                <div class="skill-card" id="skill-learning-coach">
+                    <div class="skill-top">
+                        <span class="skill-icon">🎓</span>
+                        <div class="skill-info">
+                            <div class="skill-name">Learning Coach</div>
+                            <div class="skill-simple">Teaches you new things at your own pace, step by step</div>
+                        </div>
+                        <button class="enable-btn" onclick="installSkill('learning-coach', this)">Enable</button>
+                    </div>
+                    <div class="skill-benefit">Like a patient teacher who never gets frustrated and always explains again</div>
+                </div>
+
+                <div class="skill-card" id="skill-social-media-helper">
+                    <div class="skill-top">
+                        <span class="skill-icon">📱</span>
+                        <div class="skill-info">
+                            <div class="skill-name">Social Media Helper</div>
+                            <div class="skill-simple">Creates posts, captions, and hashtags for your social media</div>
+                        </div>
+                        <button class="enable-btn" onclick="installSkill('social-media-helper', this)">Enable</button>
+                    </div>
+                    <div class="skill-benefit">Just describe what you want to share and get a ready-to-post message</div>
+                </div>
+
+                <div class="skill-card" id="skill-reminder-friend">
+                    <div class="skill-top">
+                        <span class="skill-icon">⏰</span>
+                        <div class="skill-info">
+                            <div class="skill-name">Reminder Friend</div>
+                            <div class="skill-simple">Remembers things for you and sends gentle reminders</div>
+                        </div>
+                        <button class="enable-btn" onclick="installSkill('reminder-friend', this)">Enable</button>
+                    </div>
+                    <div class="skill-benefit">Never forget an appointment, deadline, or important date again</div>
+                </div>
+
+                <div class="skill-card" id="skill-product-launcher">
+                    <div class="skill-top">
+                        <span class="skill-icon">🚀</span>
+                        <div class="skill-info">
+                            <div class="skill-name">Product Launcher</div>
+                            <div class="skill-simple">Helps you create and sell digital products online</div>
+                        </div>
+                        <button class="enable-btn" onclick="installSkill('product-launcher', this)">Enable</button>
+                    </div>
+                    <div class="skill-benefit">From idea to sale - guides you through creating your End of Life Planner, Coloring Book, etc.</div>
+                </div>
+            </div>
+
+            <div class="info-banner">
+                <strong>One tap = one new superpower.</strong> Each skill you enable teaches MegaMind something new instantly. You can disable any skill anytime.
+            </div>
+        </section>
+
+        <!-- ===== TAB: LEARN ===== -->
+        <section id="tab-learn" class="tab-content">
+            <div class="section-card">
+                <h3 style="margin-bottom:16px;">What Can AI Do For You?</h3>
+                <p style="color:var(--text-light); font-size:14px; margin-bottom:24px;">Think of MegaMind as your personal assistant who never sleeps, never forgets, and gets smarter every day.</p>
+            </div>
+
+            <div class="learn-card">
+                <div class="learn-icon">💬</div>
+                <div>
+                    <h4>Just Talk Normally</h4>
+                    <p>You don't need special commands. Just text MegaMind like you'd text a friend. Say "help me write an email to my customer" or "what should I work on today?" - it understands plain English.</p>
+                </div>
+            </div>
+
+            <div class="learn-card">
+                <div class="learn-icon">📝</div>
+                <div>
+                    <h4>It Writes For You</h4>
+                    <p>Need a professional email? A social media post? Product descriptions? Just describe what you want and MegaMind writes it. You review, tweak if needed, and you're done.</p>
+                </div>
+            </div>
+
+            <div class="learn-card">
+                <div class="learn-icon">🔍</div>
+                <div>
+                    <h4>It Researches For You</h4>
+                    <p>Instead of spending hours on Google, ask MegaMind. It searches the internet, reads through articles, and gives you a clear, simple summary. Like having a research assistant on call.</p>
+                </div>
+            </div>
+
+            <div class="learn-card">
+                <div class="learn-icon">📋</div>
+                <div>
+                    <h4>It Organizes Your Life</h4>
+                    <p>MegaMind can help plan your day, track your projects, remind you about deadlines, and keep everything in order. Like a personal secretary who knows all your priorities.</p>
+                </div>
+            </div>
+
+            <div class="learn-card">
+                <div class="learn-icon">💡</div>
+                <div>
+                    <h4>It Learns About YOU</h4>
+                    <p>The more you chat with MegaMind, the better it understands how you think, what you like, and how to help you best. It remembers your preferences and gets smarter over time.</p>
+                </div>
+            </div>
+
+            <div class="learn-card">
+                <div class="learn-icon">🛡️</div>
+                <div>
+                    <h4>It's Private & Safe</h4>
+                    <p>Your conversations are private. MegaMind doesn't share your information with anyone. It works on a secure server just for you - nobody else has access.</p>
+                </div>
+            </div>
+
+            <div class="section-card" style="text-align:center; margin-top:24px;">
+                <h3 style="margin-bottom:12px;">Quick Things to Try Right Now</h3>
+                <p style="color:var(--text-light); font-size:14px; margin-bottom:20px;">Copy any of these and send to MegaMind on WhatsApp:</p>
+
+                <div class="try-list">
+                    <div class="try-item" onclick="copyText(this)">
+                        <span>"What's the weather like today?"</span>
+                        <span class="copy-hint">tap to copy</span>
+                    </div>
+                    <div class="try-item" onclick="copyText(this)">
+                        <span>"Help me plan my day"</span>
+                        <span class="copy-hint">tap to copy</span>
+                    </div>
+                    <div class="try-item" onclick="copyText(this)">
+                        <span>"Write a professional email to a customer who ordered from my store"</span>
+                        <span class="copy-hint">tap to copy</span>
+                    </div>
+                    <div class="try-item" onclick="copyText(this)">
+                        <span>"Give me 5 social media post ideas for my business"</span>
+                        <span class="copy-hint">tap to copy</span>
+                    </div>
+                    <div class="try-item" onclick="copyText(this)">
+                        <span>"What are the steps to create a digital product?"</span>
+                        <span class="copy-hint">tap to copy</span>
+                    </div>
+                    <div class="try-item" onclick="copyText(this)">
+                        <span>"Explain how to set up a Gumroad store like I'm a beginner"</span>
+                        <span class="copy-hint">tap to copy</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align:center; margin-top:24px; padding:20px;">
+                <p style="font-size:14px; color:var(--text-light);">Chat with MegaMind on WhatsApp</p>
+                <p style="font-size:20px; font-weight:700; margin-top:8px;">+1 (678) 287-9864</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="dash-footer">
+            <p>MegaMind - Your Personal AI Assistant</p>
+        </footer>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

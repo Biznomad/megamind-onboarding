@@ -35,7 +35,16 @@ const sectionSubtitle = document.getElementById('sectionSubtitle');
 document.addEventListener('DOMContentLoaded', () => {
     updateProgress();
     setupEventListeners();
-    loadSavedProgress();
+
+    // Check for startAt param (from dashboard edit button)
+    const urlParams = new URLSearchParams(window.location.search);
+    const startAt = parseInt(urlParams.get('startAt'));
+    if (startAt && startAt >= 1 && startAt <= totalQuestions) {
+        loadSavedProgress();
+        showQuestion(startAt);
+    } else {
+        loadSavedProgress();
+    }
 });
 
 function setupEventListeners() {
@@ -272,15 +281,8 @@ async function handleSubmit(e) {
         if (response.ok) {
             localStorage.removeItem('megamind_question');
             localStorage.removeItem('megamind_answers');
-            const params = new URLSearchParams();
-            for (const [k, v] of Object.entries(responses)) {
-                if (Array.isArray(v)) {
-                    v.forEach(item => params.append(k, item));
-                } else {
-                    params.set(k, v);
-                }
-            }
-            window.location.href = `/success.html?${params.toString()}`;
+            localStorage.setItem('megamind_completed', 'true');
+            window.location.href = '/dashboard.html';
         } else {
             throw new Error(result.error || 'Submission failed');
         }

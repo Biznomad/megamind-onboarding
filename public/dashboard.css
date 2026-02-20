@@ -1,0 +1,493 @@
+/* MegaMind Dashboard Styles */
+
+.dash-container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding-bottom: 40px;
+}
+
+.dash-header {
+    text-align: center;
+    background: var(--white);
+    border-radius: 16px;
+    padding: 32px 24px 24px;
+    margin-bottom: 0;
+    box-shadow: var(--shadow-lg);
+}
+
+.dash-avatar {
+    font-size: 56px;
+    margin-bottom: 12px;
+}
+
+.dash-header h1 {
+    font-size: 24px;
+    margin-bottom: 4px;
+}
+
+/* Tab Navigation */
+.dash-tabs {
+    display: flex;
+    background: var(--white);
+    border-radius: 0 0 16px 16px;
+    padding: 0 8px 12px;
+    gap: 4px;
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.tab {
+    flex: 1;
+    padding: 10px 8px;
+    border: none;
+    background: var(--bg);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--text-light);
+    transition: all 0.2s;
+    white-space: nowrap;
+    min-width: 70px;
+}
+
+.tab.active {
+    background: var(--primary);
+    color: white;
+}
+
+.tab:hover:not(.active) {
+    background: var(--border);
+}
+
+/* Tab Content */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Section Cards */
+.section-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.section-header h3 {
+    font-size: 16px;
+    margin: 0;
+}
+
+.edit-btn {
+    background: none;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    padding: 4px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.edit-btn:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* Profile Grid */
+.profile-grid {
+    display: grid;
+    gap: 8px;
+}
+
+.profile-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--bg);
+    font-size: 14px;
+}
+
+.profile-row:last-child {
+    border-bottom: none;
+}
+
+.profile-label {
+    color: var(--text-light);
+}
+
+.profile-value {
+    font-weight: 600;
+    text-align: right;
+    max-width: 55%;
+}
+
+/* Loading */
+.loading-box {
+    text-align: center;
+    padding: 60px 20px;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+/* App List */
+.app-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.app-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    transition: all 0.2s;
+}
+
+.app-row.connected {
+    border-color: var(--success);
+    background: #f0fdf4;
+}
+
+.app-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+}
+
+.app-icon-sm {
+    font-size: 28px;
+    flex-shrink: 0;
+}
+
+.app-title {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.app-desc {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 2px;
+}
+
+.connect-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.connect-btn:hover {
+    background: var(--primary-dark);
+}
+
+.connect-btn.connected {
+    background: var(--success);
+    cursor: default;
+}
+
+.connect-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Steps */
+.steps-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+}
+
+.step-num {
+    width: 28px;
+    height: 28px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+/* Info Banner */
+.info-banner {
+    background: #f0f4ff;
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 14px;
+    color: var(--text);
+    margin-top: 12px;
+}
+
+/* Skill Cards */
+.skill-category {
+    margin-bottom: 16px;
+}
+
+.cat-label {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-light);
+    margin-bottom: 8px;
+    padding-left: 4px;
+}
+
+.skill-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 8px;
+    box-shadow: var(--shadow);
+    transition: all 0.2s;
+}
+
+.skill-card.active-skill {
+    border-left: 3px solid var(--success);
+}
+
+.skill-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.skill-icon {
+    font-size: 32px;
+    flex-shrink: 0;
+}
+
+.skill-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.skill-name {
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.skill-simple {
+    font-size: 13px;
+    color: var(--text-light);
+    margin-top: 2px;
+}
+
+.skill-benefit {
+    font-size: 12px;
+    color: var(--primary);
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--bg);
+    font-style: italic;
+}
+
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.status-badge.active {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.enable-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.enable-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.enable-btn.installed {
+    background: var(--success);
+    cursor: default;
+}
+
+.enable-btn.installing {
+    background: var(--text-light);
+    cursor: wait;
+}
+
+/* Learn Section */
+.learn-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 10px;
+    box-shadow: var(--shadow);
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.learn-icon {
+    font-size: 36px;
+    flex-shrink: 0;
+}
+
+.learn-card h4 {
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+
+.learn-card p {
+    font-size: 14px;
+    color: var(--text-light);
+    line-height: 1.5;
+}
+
+/* Try List */
+.try-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: left;
+}
+
+.try-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: var(--bg);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+}
+
+.try-item:hover {
+    background: #e0e7ff;
+}
+
+.try-item:active {
+    transform: scale(0.98);
+}
+
+.copy-hint {
+    font-size: 11px;
+    color: var(--text-light);
+    flex-shrink: 0;
+    margin-left: 8px;
+}
+
+.try-item.copied .copy-hint {
+    color: var(--success);
+}
+
+/* Footer */
+.dash-footer {
+    text-align: center;
+    padding: 24px;
+}
+
+.dash-footer p {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .dash-container {
+        padding-bottom: 20px;
+    }
+
+    .dash-header {
+        padding: 24px 16px 20px;
+    }
+
+    .dash-header h1 {
+        font-size: 20px;
+    }
+
+    .tab {
+        font-size: 12px;
+        padding: 8px 6px;
+    }
+
+    .section-card {
+        padding: 16px;
+    }
+
+    .skill-top {
+        flex-wrap: wrap;
+    }
+
+    .enable-btn, .connect-btn {
+        padding: 6px 14px;
+        font-size: 12px;
+    }
+
+    .learn-card {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .learn-icon {
+        font-size: 28px;
+    }
+
+    .app-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .connect-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
