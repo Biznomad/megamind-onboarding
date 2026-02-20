@@ -41,13 +41,16 @@ const SECTION_START = { about: 1, interests: 7, goals: 12, work: 17, settings: 2
 
 let profileData = null;
 let activeConvoId = null;
+let syncInProgress = false;
 
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
     loadProfile();
     loadInstalledSkills();
-    loadConversations();
-    initChat();
+    syncChatsFromServer().then(() => {
+        loadConversations();
+        initChat();
+    });
 });
 
 // ===== TAB SWITCHING =====
@@ -170,6 +173,54 @@ async function installSkill(skillId, btn) {
 // ===== CHAT =====
 function getChats() { return JSON.parse(localStorage.getItem('megamind_chats') || '{}'); }
 function saveChats(chats) { localStorage.setItem('megamind_chats', JSON.stringify(chats)); }
+
+// Sync a single conversation to the server (fire-and-forget)
+function syncChatToServer(chatId) {
+    const chats = getChats();
+    const convo = chats[chatId];
+    if (!convo) return;
+
+    fetch('/.netlify/functions/save-chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chatId, conversation: convo })
+    }).catch(() => {}); // silent fail, local copy is always available
+}
+
+// Load all chats from server and merge with local
+async function syncChatsFromServer() {
+    if (syncInProgress) return;
+    syncInProgress = true;
+    try {
+        const res = await fetch('/.netlify/functions/get-chats');
+        const data = await res.json();
+        const serverChats = data.chats || {};
+        const localChats = getChats();
+
+        // Merge: server wins for older, local wins for newer
+        let merged = { ...localChats };
+        for (const [id, serverConvo] of Object.entries(serverChats)) {
+            const localConvo = localChats[id];
+            if (!localConvo) {
+                // Server has a chat we don't have locally
+                merged[id] = serverConvo;
+            } else {
+                // Keep whichever has more messages or is newer
+                const serverMsgCount = serverConvo.messages?.length || 0;
+                const localMsgCount = localConvo.messages?.length || 0;
+                if (serverMsgCount > localMsgCount) {
+                    merged[id] = serverConvo;
+                }
+                // else keep local (it's newer)
+            }
+        }
+        saveChats(merged);
+    } catch (err) {
+        // Offline or error - just use local
+    } finally {
+        syncInProgress = false;
+    }
+}
 
 function initChat() {
     const chats = getChats();
@@ -304,6 +355,7 @@ async function sendMessage(e) {
     }
     convo.updated = ts;
     saveChats(chats);
+    syncChatToServer(activeConvoId);
 
     appendMessage('user', text, ts);
     input.value = '';
@@ -333,6 +385,7 @@ async function sendMessage(e) {
         freshChats[activeConvoId].messages.push({ role: 'assistant', content: reply, timestamp: replyTs });
         freshChats[activeConvoId].updated = replyTs;
         saveChats(freshChats);
+        syncChatToServer(activeConvoId);
 
         appendMessage('assistant', reply, replyTs);
     } catch (err) {
