@@ -5,6 +5,10 @@
 [functions]
   node_bundler = "esbuild"
 
+[functions."chat"]
+  external_node_modules = []
+  timeout = 26
+
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"

@@ -106,6 +106,9 @@ exports.handler = async (event) => {
       return { statusCode: 503, headers, body: JSON.stringify({ error: 'Chat not configured. Set NVIDIA_API_KEY.' }) };
     }
 
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 22000); // 22s abort before Netlify's 26s limit
+
     const response = await fetch(NVIDIA_API, {
       method: 'POST',
       headers: {
@@ -117,12 +120,23 @@ exports.handler = async (event) => {
         messages: apiMessages,
         temperature: 0.7,
         max_tokens: 1024
-      })
+      }),
+      signal: controller.signal
     });
+
+    clearTimeout(timeout);
 
     if (!response.ok) {
       const errText = await response.text();
-      throw new Error(`NVIDIA API error: ${response.status} ${errText}`);
+      console.error('NVIDIA API error:', response.status, errText);
+      if (response.status === 429) {
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({ response: "I'm getting a lot of questions right now! Give me about 30 seconds and try again." })
+        };
+      }
+      throw new Error(`API error: ${response.status}`);
     }
 
     const data = await response.json();
@@ -135,14 +149,20 @@ exports.handler = async (event) => {
     };
 
   } catch (error) {
-    console.error('Chat error:', error);
+    console.error('Chat error:', error.message);
+
+    // Return as a 200 with response field so the client displays it as a normal message, not a broken error
+    let friendlyMessage;
+    if (error.name === 'AbortError' || error.message?.includes('timeout') || error.message?.includes('abort')) {
+      friendlyMessage = "That's a great question! It was a bit complex for me to answer quickly. Could you try breaking it into a simpler question? For example, instead of asking about a whole project, ask about one specific step.";
+    } else {
+      friendlyMessage = "I had a little hiccup connecting to my brain. Try sending your message again in a few seconds. If it keeps happening, you can always reach me on WhatsApp at +1 (678) 287-9864.";
+    }
+
     return {
-      statusCode: 500,
+      statusCode: 200,
       headers,
-      body: JSON.stringify({
-        error: 'MegaMind is taking a moment. Try a shorter question or check WhatsApp.',
-        detail: error.message
-      })
+      body: JSON.stringify({ response: friendlyMessage })
     };
   }
 };

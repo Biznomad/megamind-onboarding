@@ -522,6 +522,23 @@
 .enable-btn.installed { background: var(--success); cursor: default; }
 .enable-btn.installing { background: var(--text-light); cursor: wait; }
 
+.skill-link {
+    margin-left: auto;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.dashboard-dark .skill-link {
+    color: var(--accent-start);
+}
+
+.dashboard-dark .skill-link:hover {
+    color: var(--accent-end);
+    text-decoration: underline;
+}
+
 /* ===== LEARN ===== */
 .learn-card {
     border-radius: 14px;

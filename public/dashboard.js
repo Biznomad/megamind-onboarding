@@ -384,7 +384,7 @@ async function sendMessage(e) {
         });
 
         const data = await res.json();
-        const reply = data.response || data.error || 'Sorry, something went wrong. Try again?';
+        const reply = data.response || 'Sorry, I had trouble thinking about that. Try again?';
         const replyTs = Date.now();
 
         // Save assistant message
@@ -396,7 +396,8 @@ async function sendMessage(e) {
 
         appendMessage('assistant', reply, replyTs);
     } catch (err) {
-        appendMessage('assistant', 'Hmm, I had trouble connecting. Try again or chat via WhatsApp at +1 (678) 287-9864.', Date.now());
+        // Network error - don't save as a real conversation message
+        appendMessage('assistant', "I can't reach my servers right now. Check your internet connection and try again, or message me on WhatsApp at +1 (678) 287-9864.", Date.now());
     } finally {
         typing.style.display = 'none';
         document.getElementById('sendBtn').disabled = false;
@@ -406,6 +407,14 @@ async function sendMessage(e) {
 
 function toggleSidebar() {
     document.getElementById('chatSidebar').classList.toggle('open');
+}
+
+// ===== SKILL LEARN MORE =====
+function learnSkill(skillName, prompt) {
+    switchTab('chat');
+    if (!activeConvoId) newConversation();
+    document.getElementById('chatInput').value = prompt;
+    sendMessage(new Event('submit'));
 }
 
 // ===== COPY TEXT =====
