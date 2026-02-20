@@ -57,7 +57,12 @@ document.addEventListener('DOMContentLoaded', () => {
 function switchTab(name) {
     document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.getElementById(`tab-${name}`).classList.add('active');
+    const panel = document.getElementById(`tab-${name}`);
+    panel.classList.add('active');
+    // Re-trigger fadeSlideUp animation
+    panel.style.animation = 'none';
+    panel.offsetHeight; // force reflow
+    panel.style.animation = '';
     document.querySelector(`.tab[data-tab="${name}"]`).classList.add('active');
     if (name !== 'chat') window.scrollTo({ top: 0, behavior: 'smooth' });
     if (name === 'chat') document.getElementById('chatInput').focus();
@@ -275,7 +280,9 @@ function renderConversation(id) {
     if (!convo || convo.messages.length === 0) {
         container.innerHTML = `
             <div class="chat-welcome">
-                <div style="font-size:48px; margin-bottom:12px;">🧠</div>
+                <div class="welcome-glow">
+                    <span class="megamind-avatar-lg">🧠</span>
+                </div>
                 <h3>Hey! I'm MegaMind</h3>
                 <p>Your personal AI assistant. Ask me anything!</p>
                 <div class="quick-prompts">

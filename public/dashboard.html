@@ -4,24 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>MegaMind Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="dashboard.css">
 </head>
-<body>
+<body class="dashboard-dark">
     <div class="dash-container">
 
         <header class="dash-header">
-            <div class="dash-avatar">🧠</div>
+            <div class="header-glow"></div>
+            <div class="avatar-pulse">
+                <div class="dash-avatar">🧠</div>
+            </div>
             <h1 id="welcomeMsg">Welcome back!</h1>
             <p class="subtitle" id="welcomeSub">Your personal AI command center</p>
+            <div class="header-stats">
+                <span class="status-chip"><span class="dot"></span> Online</span>
+            </div>
         </header>
 
         <nav class="dash-tabs">
-            <button class="tab active" data-tab="chat" onclick="switchTab('chat')">Chat</button>
-            <button class="tab" data-tab="profile" onclick="switchTab('profile')">Profile</button>
-            <button class="tab" data-tab="apps" onclick="switchTab('apps')">Apps</button>
-            <button class="tab" data-tab="skills" onclick="switchTab('skills')">Skills</button>
-            <button class="tab" data-tab="learn" onclick="switchTab('learn')">Learn</button>
+            <button class="tab active" data-tab="chat" onclick="switchTab('chat')"><span class="tab-icon">💬</span><span class="tab-label">Chat</span></button>
+            <button class="tab" data-tab="profile" onclick="switchTab('profile')"><span class="tab-icon">👤</span><span class="tab-label">Profile</span></button>
+            <button class="tab" data-tab="apps" onclick="switchTab('apps')"><span class="tab-icon">🔗</span><span class="tab-label">Apps</span></button>
+            <button class="tab" data-tab="skills" onclick="switchTab('skills')"><span class="tab-icon">⚡</span><span class="tab-label">Skills</span></button>
+            <button class="tab" data-tab="learn" onclick="switchTab('learn')"><span class="tab-icon">📚</span><span class="tab-label">Learn</span></button>
         </nav>
 
         <!-- ===== TAB: CHAT ===== -->
@@ -43,7 +52,9 @@
 
                     <div class="chat-messages" id="chatMessages">
                         <div class="chat-welcome">
-                            <div style="font-size:48px; margin-bottom:12px;">🧠</div>
+                            <div class="welcome-glow">
+                                <span class="megamind-avatar-lg">🧠</span>
+                            </div>
                             <h3>Hey! I'm MegaMind</h3>
                             <p>Your personal AI assistant. Ask me anything!</p>
                             <div class="quick-prompts">
@@ -57,7 +68,8 @@
 
                     <div class="chat-input-area">
                         <div class="typing-indicator" id="typingIndicator" style="display:none;">
-                            <span></span><span></span><span></span> MegaMind is thinking...
+                            <div class="typing-dots"><span></span><span></span><span></span></div>
+                            <span class="typing-text">MegaMind is thinking...</span>
                         </div>
                         <form id="chatForm" onsubmit="sendMessage(event)">
                             <input type="text" id="chatInput" placeholder="Message MegaMind..." autocomplete="off">
@@ -275,7 +287,7 @@
             </div>
         </section>
 
-        <footer class="dash-footer"><p>MegaMind - Your Personal AI Assistant</p></footer>
+        <footer class="dash-footer"><p><span class="footer-brand"><span class="footer-icon">🧠</span> MegaMind - Your Personal AI Assistant</span></p></footer>
     </div>
 
     <script src="dashboard.js"></script>
