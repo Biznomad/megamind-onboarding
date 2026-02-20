@@ -35,13 +35,11 @@
         <div style="margin: 32px 0;">
             <h2 style="font-size: 20px; margin-bottom: 16px;">What's Next?</h2>
             <p style="margin-bottom: 16px; color: var(--text-light);">
-                Start chatting with MegaMind - your assistant now knows you deeply and will tailor everything to your preferences.
+                Start chatting with MegaMind - your assistant now knows you deeply.
             </p>
-
             <a href="oauth.html" class="btn btn-primary" style="display: block; text-align: center; text-decoration: none; margin-top: 16px;">
                 Connect Apps (Optional) →
             </a>
-
             <p style="text-align: center; margin-top: 16px; font-size: 14px; color: var(--text-light);">
                 Or skip for now - you can always connect apps later
             </p>
@@ -60,39 +58,40 @@
         const summaryContent = document.getElementById('summaryContent');
 
         const L = {
-            q1_name: { _title: 'Name', jacquie: 'Jacquie', mrs_jones: 'Mrs. Jones', j: 'J', boss: 'Boss' },
-            q2_rhythm: { _title: 'Daily Rhythm', early_bird: 'Early bird', midday: 'Midday', night_owl: 'Night owl', depends: 'Flexible' },
-            q3_personality: { _title: 'Personality', creative: 'Creative', organized: 'Organized', caring: 'Caring', determined: 'Determined' },
-            q4_unwind: { _title: 'Unwind', reading: 'Reading', cooking: 'Cooking', tv_music: 'Music/TV', outdoors: 'Outdoors' },
-            q5_energy: { _title: 'Energized By', helping: 'Helping others', learning: 'Learning', creating: 'Creating', connecting: 'Connecting' },
-            q6_topics: { _title: 'Interests', health_wellness: 'Health', faith_spirituality: 'Faith', business_money: 'Business', technology: 'Technology' },
-            q7_creative: { _title: 'Creative', writing: 'Writing', art_design: 'Art & design', cooking_baking: 'Cooking', all_creative: 'All creative' },
-            q8_content: { _title: 'Content', documentaries: 'Documentaries', faith_inspiration: 'Faith', business_tutorials: 'Business', variety: 'Everything' },
-            q9_music: { _title: 'Music', gospel: 'Gospel', jazz_soul: 'Jazz/Soul', oldies: 'Oldies', all_music: 'All music' },
-            q10_community: { _title: 'Community', church_faith: 'Church', family: 'Family', entrepreneurs: 'Entrepreneurs', neighborhood: 'Neighborhood' },
-            q11_goal: { _title: 'Goal', launch_product: 'Launch product', learn_skills: 'Learn skills', get_organized: 'Get organized', build_income: 'Build income' },
-            q12_extra_hour: { _title: 'Extra Hour', learn: 'Learn', projects: 'Projects', relax: 'Rest', family: 'Family' },
-            q13_skill: { _title: 'Master', tech: 'Technology', writing: 'Writing', design: 'Design', marketing: 'Marketing' },
-            q14_legacy: { _title: 'Legacy', help_plan: 'Help families plan', inspire: 'Inspire kids', knowledge: 'Share wisdom', financial: 'Financial freedom' },
-            q15_future: { _title: '2-Year Vision', business_owner: 'Business owner', creative_retired: 'Creative retirement', mentor: 'Mentor', traveling: 'Traveling' },
-            q16_project: { _title: 'Priority Project', end_of_life_planner: 'End of Life Planner', kids_coloring_book: 'Coloring Book', website_building: 'Website', ai_mastery: 'AI Mastery' },
-            q17_challenges: { _title: 'Challenges', research: 'Research first', ask_help: 'Ask for help', push_through: 'Push through', step_back: 'Step back' },
-            q18_organized: { _title: 'Organization', very: 'Very organized', somewhat: 'Somewhat', working_on_it: 'Working on it', creative_chaos: 'Creative chaos' },
-            q19_tech_frustration: { _title: 'Tech Pain', complicated: 'Too complex', changes_fast: 'Changes fast', no_time: 'No time', where_to_start: 'Where to start' },
-            q20_work_style: { _title: 'Work Style', solo: 'Solo', partner: 'Partner', group: 'Group', mix: 'Mixed' },
-            q21_communication: { _title: 'Communication', brief: 'Brief', detailed: 'Detailed', conversational: 'Conversational', adaptive: 'Adaptive' },
-            q22_checkin: { _title: 'Check-ins', daily: 'Daily', few_days: 'Every 2-3 days', weekly: 'Weekly', on_demand: 'On demand' },
-            q23_features: { _title: 'Focus Areas', research: 'Research', organization: 'Organization', content: 'Content', automation: 'Automation' },
-            q24_level: { _title: 'Level', beginner: 'Beginner', intermediate: 'Intermediate', advanced: 'Advanced' },
-            q25_role: { _title: 'MegaMind Role', coach: 'Coach', partner: 'Partner', helper: 'Helper', cheerleader: 'Cheerleader' }
+            q1_name: { _t: 'Name', jacquie: 'Jacquie', mrs_jones: 'Mrs. Jones', j: 'J', boss: 'Boss' },
+            q2_rhythm: { _t: 'Rhythm', early_bird: 'Early bird', midday: 'Midday', night_owl: 'Night owl', depends: 'Flexible' },
+            q3_timezone: { _t: 'Time Zone', eastern: 'Eastern', central: 'Central', mountain: 'Mountain', pacific: 'Pacific' },
+            q4_personality: { _t: 'Personality', creative: 'Creative', organized: 'Organized', caring: 'Caring', determined: 'Determined' },
+            q5_unwind: { _t: 'Unwind', reading: 'Reading', cooking: 'Cooking', tv_music: 'Music/TV', outdoors: 'Outdoors' },
+            q6_energy: { _t: 'Energized By', helping: 'Helping', learning: 'Learning', creating: 'Creating', connecting: 'Connecting' },
+            q7_topics: { _t: 'Interests', health_wellness: 'Health', faith_spirituality: 'Faith', business_money: 'Business', technology: 'Technology' },
+            q8_creative: { _t: 'Creative', writing: 'Writing', art_design: 'Art/design', cooking_baking: 'Cooking', all_creative: 'All creative' },
+            q9_content: { _t: 'Content', documentaries: 'Docs', faith_inspiration: 'Faith', business_tutorials: 'Business', variety: 'Everything' },
+            q10_music: { _t: 'Music', gospel: 'Gospel', jazz_soul: 'Jazz/Soul', oldies: 'Oldies', all_music: 'All music' },
+            q11_community: { _t: 'Community', church_faith: 'Church', family: 'Family', entrepreneurs: 'Entrepreneurs', neighborhood: 'Neighborhood' },
+            q12_goal: { _t: 'Goal', launch_product: 'Launch product', learn_skills: 'Learn skills', get_organized: 'Get organized', build_income: 'Build income' },
+            q13_extra_hour: { _t: 'Extra Hour', learn: 'Learn', projects: 'Projects', relax: 'Rest', family: 'Family' },
+            q14_skill: { _t: 'Master', tech: 'Technology', writing: 'Writing', design: 'Design', marketing: 'Marketing' },
+            q15_legacy: { _t: 'Legacy', help_plan: 'Help families', inspire: 'Inspire kids', knowledge: 'Share wisdom', financial: 'Financial freedom' },
+            q16_future: { _t: '2-Year Vision', business_owner: 'Business owner', creative_retired: 'Creative retirement', mentor: 'Mentor', traveling: 'Traveling' },
+            q17_project: { _t: 'Priority', end_of_life_planner: 'End of Life Planner', kids_coloring_book: 'Coloring Book', website_building: 'Website', ai_mastery: 'AI Mastery' },
+            q18_challenges: { _t: 'Challenges', research: 'Research first', ask_help: 'Ask for help', push_through: 'Push through', step_back: 'Step back' },
+            q19_organized: { _t: 'Organization', very: 'Very organized', somewhat: 'Somewhat', working_on_it: 'Working on it', creative_chaos: 'Creative chaos' },
+            q20_tech_frustration: { _t: 'Tech Pain', complicated: 'Too complex', changes_fast: 'Changes fast', no_time: 'No time', where_to_start: 'Where to start' },
+            q21_work_style: { _t: 'Work Style', solo: 'Solo', partner: 'Partner', group: 'Group', mix: 'Mixed' },
+            q22_communication: { _t: 'Communication', brief: 'Brief', detailed: 'Detailed', conversational: 'Conversational', adaptive: 'Adaptive' },
+            q23_checkin: { _t: 'Check-ins', daily: 'Daily', few_days: 'Every 2-3 days', weekly: 'Weekly', on_demand: 'On demand' },
+            q24_features: { _t: 'Focus Areas', research: 'Research', organization: 'Organization', content: 'Content', automation: 'Automation' },
+            q25_level: { _t: 'Level', beginner: 'Beginner', intermediate: 'Intermediate', advanced: 'Advanced' },
+            q26_role: { _t: 'MegaMind Role', coach: 'Coach', partner: 'Partner', helper: 'Helper', cheerleader: 'Cheerleader' }
         };
 
         const sectionDefs = [
-            { title: 'About You', keys: ['q1_name','q2_rhythm','q3_personality','q4_unwind','q5_energy'] },
-            { title: 'Interests & Passions', keys: ['q6_topics','q7_creative','q8_content','q9_music','q10_community'] },
-            { title: 'Goals & Dreams', keys: ['q11_goal','q12_extra_hour','q13_skill','q14_legacy','q15_future'] },
-            { title: 'Work Style', keys: ['q16_project','q17_challenges','q18_organized','q19_tech_frustration','q20_work_style'] },
-            { title: 'MegaMind Settings', keys: ['q21_communication','q22_checkin','q23_features','q24_level','q25_role'] }
+            { title: 'About You', keys: ['q1_name','q2_rhythm','q3_timezone','q4_personality','q5_unwind','q6_energy'] },
+            { title: 'Interests & Passions', keys: ['q7_topics','q8_creative','q9_content','q10_music','q11_community'] },
+            { title: 'Goals & Dreams', keys: ['q12_goal','q13_extra_hour','q14_skill','q15_legacy','q16_future'] },
+            { title: 'Work Style', keys: ['q17_project','q18_challenges','q19_organized','q20_tech_frustration','q21_work_style'] },
+            { title: 'MegaMind Settings', keys: ['q22_communication','q23_checkin','q24_features','q25_level','q26_role'] }
         ];
 
         let html = '';
@@ -101,7 +100,7 @@
             for (const key of section.keys) {
                 const vals = params.getAll(key);
                 if (vals.length === 0) continue;
-                const title = L[key]?._title || key;
+                const title = L[key]?._t || key;
                 const display = vals.map(v => L[key]?.[v] || v).join(', ');
                 items += `<div class="summary-item"><span class="summary-label">${title}</span><span class="summary-value">${display}</span></div>`;
             }
@@ -110,7 +109,7 @@
             }
         }
 
-        summaryContent.innerHTML = html || '<p>Quiz responses saved! Check your WhatsApp for confirmation.</p>';
+        summaryContent.innerHTML = html || '<p>Quiz responses saved! Check WhatsApp for confirmation.</p>';
     </script>
 </body>
 </html>

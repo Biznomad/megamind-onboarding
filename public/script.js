@@ -1,13 +1,24 @@
-// MegaMind 25-Question Personalization Quiz
+// MegaMind 26-Question Personalization Quiz
 let currentQuestion = 1;
-const totalQuestions = 25;
+const totalQuestions = 26;
+
+// Questions that allow multiple selections (checkboxes)
+const multiSelectQuestions = {
+    5: 'q5_unwind',
+    7: 'q7_topics',
+    8: 'q8_creative',
+    9: 'q9_content',
+    10: 'q10_music',
+    11: 'q11_community',
+    24: 'q24_features'  // pick exactly 2
+};
 
 const sections = {
-    about: { title: "About You", subtitle: "Getting to know the real you", range: [1, 5] },
-    interests: { title: "Interests & Passions", subtitle: "What lights you up", range: [6, 10] },
-    goals: { title: "Goals & Dreams", subtitle: "Where you're headed", range: [11, 15] },
-    work: { title: "Work Style", subtitle: "How you get things done", range: [16, 20] },
-    settings: { title: "MegaMind Settings", subtitle: "Fine-tuning your assistant", range: [21, 25] }
+    about: { title: "About You", subtitle: "Getting to know the real you", range: [1, 6] },
+    interests: { title: "Interests & Passions", subtitle: "What lights you up", range: [7, 11] },
+    goals: { title: "Goals & Dreams", subtitle: "Where you're headed", range: [12, 16] },
+    work: { title: "Work Style", subtitle: "How you get things done", range: [17, 21] },
+    settings: { title: "MegaMind Settings", subtitle: "Fine-tuning your assistant", range: [22, 26] }
 };
 
 const form = document.getElementById('quizForm');
@@ -32,17 +43,40 @@ function setupEventListeners() {
     nextBtn.addEventListener('click', nextQuestion);
     form.addEventListener('submit', handleSubmit);
 
+    // Auto-advance on radio selection (single-select questions only)
     document.querySelectorAll('input[type="radio"]').forEach(radio => {
         radio.addEventListener('change', () => {
-            if (currentQuestion < totalQuestions) {
+            if (currentQuestion < totalQuestions && !multiSelectQuestions[currentQuestion]) {
                 setTimeout(nextQuestion, 300);
             }
         });
     });
 
-    document.querySelectorAll('input[name="q23_features"]').forEach(checkbox => {
+    // Feature validation (Q24 - pick exactly 2)
+    document.querySelectorAll('input[name="q24_features"]').forEach(checkbox => {
         checkbox.addEventListener('change', validateFeatures);
     });
+
+    // Update multi-select hints when checkboxes change
+    for (const [qNum, fieldName] of Object.entries(multiSelectQuestions)) {
+        if (parseInt(qNum) === 24) continue; // features has its own validator
+        document.querySelectorAll(`input[name="${fieldName}"]`).forEach(cb => {
+            cb.addEventListener('change', () => updateMultiHint(qNum, fieldName));
+        });
+    }
+}
+
+function updateMultiHint(qNum, fieldName) {
+    const hint = document.getElementById(`q${qNum}Hint`);
+    if (!hint) return;
+    const count = document.querySelectorAll(`input[name="${fieldName}"]:checked`).length;
+    if (count > 0) {
+        hint.textContent = `${count} selected - tap Next when ready`;
+        hint.style.color = 'var(--success)';
+    } else {
+        hint.textContent = 'Tap to select, then press Next';
+        hint.style.color = '';
+    }
 }
 
 function getSectionForQuestion(num) {
@@ -88,7 +122,8 @@ function nextQuestion() {
     const current = document.querySelector(`.question-card[data-question="${currentQuestion}"]`);
     let isValid = false;
 
-    if (currentQuestion === 23) {
+    if (currentQuestion === 24) {
+        // Q24 features: exactly 2
         const checked = current.querySelectorAll('input[type="checkbox"]:checked');
         isValid = checked.length === 2;
         if (!isValid) {
@@ -96,15 +131,23 @@ function nextQuestion() {
             featureHint.classList.add('error');
             return;
         }
+    } else if (multiSelectQuestions[currentQuestion]) {
+        // Other multi-select: at least 1
+        const checked = current.querySelectorAll('input[type="checkbox"]:checked');
+        isValid = checked.length >= 1;
+        if (!isValid) {
+            alert('Please select at least one option');
+            return;
+        }
     } else {
+        // Radio: one selected
         current.querySelectorAll('input[type="radio"]').forEach(input => {
             if (input.checked) isValid = true;
         });
-    }
-
-    if (!isValid) {
-        alert('Please select an option');
-        return;
+        if (!isValid) {
+            alert('Please select an option');
+            return;
+        }
     }
 
     saveAnswer();
@@ -120,7 +163,7 @@ function previousQuestion() {
 }
 
 function validateFeatures() {
-    const checked = document.querySelectorAll('input[name="q23_features"]:checked');
+    const checked = document.querySelectorAll('input[name="q24_features"]:checked');
     if (checked.length === 2) {
         featureHint.textContent = 'Perfect!';
         featureHint.classList.remove('error');
@@ -140,8 +183,10 @@ function validateFeatures() {
 function saveAnswer() {
     const formData = new FormData(form);
     const answers = {};
+    const multiFields = Object.values(multiSelectQuestions);
+
     for (let [key, value] of formData.entries()) {
-        if (key === 'q23_features') {
+        if (multiFields.includes(key)) {
             answers[key] = formData.getAll(key);
         } else {
             answers[key] = value;
@@ -179,33 +224,25 @@ async function handleSubmit(e) {
     e.preventDefault();
 
     const formData = new FormData(form);
-    const responses = {
-        q1_name: formData.get('q1_name'),
-        q2_rhythm: formData.get('q2_rhythm'),
-        q3_personality: formData.get('q3_personality'),
-        q4_unwind: formData.get('q4_unwind'),
-        q5_energy: formData.get('q5_energy'),
-        q6_topics: formData.get('q6_topics'),
-        q7_creative: formData.get('q7_creative'),
-        q8_content: formData.get('q8_content'),
-        q9_music: formData.get('q9_music'),
-        q10_community: formData.get('q10_community'),
-        q11_goal: formData.get('q11_goal'),
-        q12_extra_hour: formData.get('q12_extra_hour'),
-        q13_skill: formData.get('q13_skill'),
-        q14_legacy: formData.get('q14_legacy'),
-        q15_future: formData.get('q15_future'),
-        q16_project: formData.get('q16_project'),
-        q17_challenges: formData.get('q17_challenges'),
-        q18_organized: formData.get('q18_organized'),
-        q19_tech_frustration: formData.get('q19_tech_frustration'),
-        q20_work_style: formData.get('q20_work_style'),
-        q21_communication: formData.get('q21_communication'),
-        q22_checkin: formData.get('q22_checkin'),
-        q23_features: formData.getAll('q23_features'),
-        q24_level: formData.get('q24_level'),
-        q25_role: formData.get('q25_role')
-    };
+    const multiFields = Object.values(multiSelectQuestions);
+
+    const responses = {};
+    const allFields = [
+        'q1_name','q2_rhythm','q3_timezone','q4_personality',
+        'q5_unwind','q6_energy',
+        'q7_topics','q8_creative','q9_content','q10_music','q11_community',
+        'q12_goal','q13_extra_hour','q14_skill','q15_legacy','q16_future',
+        'q17_project','q18_challenges','q19_organized','q20_tech_frustration','q21_work_style',
+        'q22_communication','q23_checkin','q24_features','q25_level','q26_role'
+    ];
+
+    for (const key of allFields) {
+        if (multiFields.includes(key)) {
+            responses[key] = formData.getAll(key);
+        } else {
+            responses[key] = formData.get(key);
+        }
+    }
 
     // Validate all answered
     for (let key in responses) {
@@ -215,8 +252,8 @@ async function handleSubmit(e) {
         }
     }
 
-    if (responses.q23_features.length !== 2) {
-        alert('Please select exactly 2 feature priorities (Question 23)');
+    if (responses.q24_features.length !== 2) {
+        alert('Please select exactly 2 feature priorities (Question 24)');
         return;
     }
 
